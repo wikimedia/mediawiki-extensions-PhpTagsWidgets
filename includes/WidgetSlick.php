@@ -65,7 +65,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			case 'centerMode':
 			case 'dots':
 			case 'draggable':
-			case 'fade':
+//			case 'fade': do not allow it!
 			case 'focusOnSelect':
 			case 'infinite':
 			case 'pauseOnHover':
@@ -147,7 +147,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			case 'arrows':
 			case 'dots':
 			case 'draggable':
-			case 'fade':
+//			case 'fade': do not allow it!
 //			case 'easing':
 			case 'infinite':
 			case 'swipe':
