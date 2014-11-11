@@ -9,7 +9,6 @@ namespace PhpTagsObjects;
  */
 class WidgetSlick extends \PhpTags\GenericWidget {
 
-	protected static $modules = false;
 	protected static $trueCase = array(
 		'adaptiveheight' => 'adaptiveHeight',
 		'autoplayspeed' => 'autoplaySpeed',
@@ -29,7 +28,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 		'variablewidth' => 'variableWidth',
 	);
 
-	public function m___construct( $properties = null, $value = null ) {
+	public function m___construct( $value = null, $properties = null ) {
 		$this->value[self::DATA] = $value;
 		return parent::m___construct( $properties );
 	}
@@ -51,6 +50,19 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			$data = '<div>' . implode( '</div><div>', $this->value[self::DATA] ) . '</div>';
 		}
 		return $data;
+	}
+
+	public static function checkArguments( $object, $method, $arguments, $expects = false ) {
+		switch ( $method ) {
+			case '__construct':
+				$expects = array(
+					\PhpTags\Hooks::TYPE_MIXED,
+					\PhpTags\Hooks::TYPE_ARRAY,
+					\PhpTags\Hooks::EXPECTS_MAXIMUM_PARAMETERS => 2,
+				);
+				break;
+		}
+		return parent::checkArguments( $object, $method, $arguments, $expects );
 	}
 
 	private function checkProperty( $property, &$value ) {
@@ -94,7 +106,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			case 'cssEase':
 // @???todo case 'customPaging': ???
 // @todo	case 'easing':
-//			case 'lazyLoad':
+//			case 'lazyLoad': // do not allow it!!!
 			case 'slide':
 				$expects = \PhpTags\Hooks::TYPE_STRING;
 				break;

@@ -33,7 +33,7 @@ if ( PHPTAGS_HOOK_RELEASE != 5 ) {
 	);
 }
 
-define( 'PHPTAGS_WIDGETS_VERSION' , '1.0.0' );
+define( 'PHPTAGS_WIDGETS_VERSION' , '1.1.0' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -71,7 +71,7 @@ $wgHooks['UnitTestsList'][] = function ( &$files ) {
 	return true;
 };
 
-$wgParserTestFiles[] = __DIR__ . '/tests/parser/PhpTagsWidgetsTests.txt';
+// @todo $wgParserTestFiles[] = __DIR__ . '/tests/parser/PhpTagsWidgetsTests.txt';
 
 $tpl = array(
 	'localBasePath' => __DIR__ . '/resources',
