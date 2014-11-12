@@ -8,10 +8,12 @@ namespace PhpTags;
  */
 class GenericWidget extends GenericObject {
 
-	protected static $classPrefix;
+	public static $classPrefix;
 	protected static $classN = 1;
 	protected static $addedModules = array();
 	protected $classID;
+	protected $element = 'div';
+
 	const PROP = 0;
 	const DATA = 1;
 	const GENERAL_ATTRIBS = 2;
@@ -20,7 +22,6 @@ class GenericWidget extends GenericObject {
 	function __construct( $name, $value = null ) {
 		if ( self::$classPrefix === null ) {
 			self::$classPrefix = 'pw-' . base_convert( mt_rand(), 10, 36 ) . '-';
-			\PhpTags::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
 		}
 		$this->classID = self::$classN++;
 
@@ -45,15 +46,17 @@ class GenericWidget extends GenericObject {
 	function getString() {}
 
 	public function getClassName() {
+		if ( ! isset( \PhpTags::$globalVariablesScript['Widgets']['prefix'] ) ) {
+			\PhpTags::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
+		}
 		return self::$classPrefix . $this->classID;
 	}
 
 	public function toString() {
-		$element = 'div';
 		$attribs = $this->value[self::GENERAL_ATTRIBS];
 		$class = $this->getClassName();
 		$attribs['class'] = isset( $attribs['class'] ) ? "$class {$attribs['class']}" : $class;
-		return \Html::rawElement( $element, $attribs, $this->getString() );
+		return \Html::rawElement( $this->element, $attribs, $this->getString() );
 	}
 
 	public function __toString() {
@@ -81,7 +84,7 @@ class GenericWidget extends GenericObject {
 		unset( \PhpTags::$globalVariablesScript['Widgets']['onReady'][ (string)$this->classID ] );
 	}
 
-	protected function addModule( $module, $wait = true ) {
+	protected function addModule( $module, $wait = false ) {
 		static $output = false;
 		if ( isset( self::$addedModules[$module] ) ) { // Module is already added
 			return;
@@ -141,4 +144,5 @@ class GenericWidget extends GenericObject {
 		}
 		return parent::__call( $name, $arguments );
 	}
+
 }

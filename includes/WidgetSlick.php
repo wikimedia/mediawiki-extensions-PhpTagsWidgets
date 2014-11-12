@@ -43,7 +43,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 	}
 
 	public function getString() {
-		$this->addModule( 'ext.PhpTagsWidgets.slick' );
+		$this->addModule( 'ext.PhpTagsWidgets.slick', true );
 		$this->addToData( array( $this->value[self::PROP] ) );
 		$data = $this->value[self::DATA];
 		if ( is_array( $data ) ) {

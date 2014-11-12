@@ -33,7 +33,7 @@ if ( PHPTAGS_HOOK_RELEASE != 5 ) {
 	);
 }
 
-define( 'PHPTAGS_WIDGETS_VERSION' , '1.1.0' );
+define( 'PHPTAGS_WIDGETS_VERSION' , '1.2.0' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -58,8 +58,11 @@ $wgHooks['PhpTagsRuntimeFirstInit'][] = 'PhpTagsWidgetsInit::initializeRuntime';
 // Preparing classes for autoloading
 $wgAutoloadClasses['PhpTagsWidgetsInit'] = __DIR__ . '/PhpTagsWidgets.init.php';
 
+$wgAutoloadClasses['PhpTagsWidgetsFunc'] = __DIR__ . '/includes/Functions.php';
 $wgAutoloadClasses['PhpTags\\GenericWidget'] = __DIR__ . '/includes/GenericWidget.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetSlick'] = __DIR__ . '/includes/WidgetSlick.php';
+$wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesome'] = __DIR__ . '/includes/WidgetFontAwesome.php';
+$wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesomeIcon'] = __DIR__ . '/includes/WidgetFontAwesomeIcon.php';
 
 /**
  * Add files to phpunit test
@@ -68,15 +71,21 @@ $wgAutoloadClasses['PhpTagsObjects\\WidgetSlick'] = __DIR__ . '/includes/WidgetS
 $wgHooks['UnitTestsList'][] = function ( &$files ) {
 	$testDir = __DIR__ . '/tests/phpunit';
 	$files = array_merge( $files, glob( "$testDir/*Test.php" ) );
+	\PhpTags\GenericWidget::$classPrefix = 'UnitTest';
 	return true;
 };
 
-// @todo $wgParserTestFiles[] = __DIR__ . '/tests/parser/PhpTagsWidgetsTests.txt';
+$wgParserTestFiles[] = __DIR__ . '/tests/parser/PhpTagsWidgetsTests.txt';
 
 $tpl = array(
 	'localBasePath' => __DIR__ . '/resources',
 	'remoteExtPath' => 'PhpTagsWidgets/resources',
 );
+
+$wgResourceModules['ext.PhpTagsWidgets.onReady'] = array(
+	'group' => 'PhpTagsWidgets',
+	'scripts' => 'ext.pw.onReady.js',
+) + $tpl;
 
 $wgResourceModules['ext.PhpTagsWidgets.slick'] = array(
 	'group' => 'PhpTagsWidgets',
@@ -85,7 +94,7 @@ $wgResourceModules['ext.PhpTagsWidgets.slick'] = array(
 	'dependencies' => array( 'jquery' ),
 ) + $tpl;
 
-$wgResourceModules['ext.PhpTagsWidgets.onReady'] = array(
+$wgResourceModules['ext.PhpTagsWidgets.FontAwesome'] = array(
 	'group' => 'PhpTagsWidgets',
-	'scripts' => 'ext.pw.onReady.js',
+	'styles' => 'libs/font-awesome/css/font-awesome.css',
 ) + $tpl;

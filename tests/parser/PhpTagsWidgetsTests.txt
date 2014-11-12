@@ -1,0 +1,230 @@
+!! test
+FontAwesomeIcon home
+!! input
+<phptag> echo new FontAwesomeIcon( "home" ); </phptag>
+!! result
+<p><i class="fa fa-home"></i>
+</p>
+!! end
+
+!! test
+FontAwesome home func
+!! input
+{{#phptag: FA::home }}
+!! result
+<p><i class="fa fa-home"></i>
+</p>
+!! end
+
+!! test
+func fa home func
+!! input
+{{#phptag: echo fa( 'home' ); }}
+!! result
+<p><i class="fa fa-home"></i>
+</p>
+!! end
+
+!! test
+FontAwesome home tag
+!! input
+<phptag> echo FA::home; </phptag>
+!! result
+<p><i class="fa fa-home"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon home fw
+!! input
+<phptag> echo new FontAwesomeIcon( 'HoMe', ['fw'] ); </phptag>
+!! result
+<p><i class="fa fa-home fa-fw"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon home fw property
+!! input
+<phptag>
+$i = new FontAwesomeIcon( 'HoMe' );
+echo $i->fw;
+</phptag>
+!! result
+<p><i class="fa fa-home fa-fw"></i>
+</p>
+!! end
+
+!! test
+FontAwesome home fw property
+!! input
+<phptag>
+$i = FA::HoMe;
+echo $i->fw;
+</phptag>
+!! result
+<p><i class="fa fa-home fa-fw"></i>
+</p>
+!! end
+
+!! test
+func fa home fw
+!! input
+<phptag>
+echo fa( 'HoMe', ['fw'] );
+</phptag>
+!! result
+<p><i class="fa fa-home fa-fw"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon camera-retro
+!! input
+<phptag> echo new FontAwesomeIcon( 'camera-RETRO' ); </phptag>
+!! result
+<p><i class="fa fa-camera-retro"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon camera-retro lg
+!! input
+{{#phptag: echo new FontAwesomeIcon( 'camera-retro', ['lg'] ); }}
+!! result
+<p><i class="fa fa-camera-retro fa-lg"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon camera-retro lg 3x
+!! input
+{{#phptag: echo new FontAwesomeIcon( 'camera-retro', ['LG', '3x'] ); }}
+!! result
+<p><i class="fa fa-camera-retro fa-3x"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon camera-retro lg 3x property
+!! input
+<phptag>
+$i = new FontAwesomeIcon( 'camera-retro' );
+echo $i->LG->_3x;
+!! result
+<p><i class="fa fa-camera-retro fa-3x"></i>
+</p>
+!! end
+
+!! test
+FontAwesome camera-retro lg 3x
+!! input
+{{#phptag: FA::camera_retro->LG->_3x }}
+!! result
+<p><i class="fa fa-camera-retro fa-3x"></i>
+</p>
+!! end
+
+!! test
+func FontAwesome camera-retro lg 3x
+!! input
+{{#phptag: echo fontawesome( 'camera-retro', ['LG', '3x'] ); }}
+!! result
+<p><i class="fa fa-camera-retro fa-3x"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon camera-retro lg 3x fw
+!! input
+{{#phptag: echo new FontAwesomeIcon( 'camera-retro', ['lg', '3x', 'fw'] ); }}
+!! result
+<p><i class="fa fa-camera-retro fa-3x fa-fw"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon spinner spin 3x
+!! input
+{{#phptag: echo new FontAwesomeIcon( 'spinner', ['spin', '3x'] ); }}
+!! result
+<p><i class="fa fa-spinner fa-spin fa-3x"></i>
+</p>
+!! end
+
+!! test
+FontAwesome spinner spin 3x
+!! input
+{{#phptag: FA::spinner->spin->_3x }}
+!! result
+<p><i class="fa fa-spinner fa-spin fa-3x"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon quote-left 3x border
+!! input
+{{#phptag: echo new FontAwesomeIcon( 'quote-left', ['3x', 'border'] ); }}
+!! result
+<p><i class="fa fa-quote-left fa-3x fa-border"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon quote-left 3x border pull-left
+!! input
+<phptag>
+echo new FontAwesomeIcon( 'quote-left', ['3x', 'BoRdEr', 'ClasS'=>'pull-left'] );
+</phptag>
+!! result
+<p><i class="fa fa-quote-left fa-3x fa-border pull-left"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon quote-left 3x border pull-left class
+!! input
+<phptag>
+$fai = new FontAwesomeIcon( 'quote-left', ['3x', 'border'] );
+$fai->class = 'pull-left';
+echo $fai;
+</phptag>
+!! result
+<p><i class="fa fa-quote-left fa-3x fa-border pull-left"></i>
+</p>
+!! end
+
+!! test
+FontAwesome quote-left 3x border pull-left class
+!! input
+<phptag>
+$fai = FA::quote_left->_3x->border;
+$fai->class = 'pull-left';
+echo $fai;
+</phptag>
+!! result
+<p><i class="fa fa-quote-left fa-3x fa-border pull-left"></i>
+</p>
+!! end
+
+!! test
+FontAwesomeIcon shield rotate-270
+!! input
+<phptag>
+echo new FontAwesomeIcon( 'shield', ['rotate-270'] );
+</phptag>
+!! result
+<p><i class="fa fa-shield fa-rotate-270"></i>
+</p>
+!! end
+
+!! test
+FontAwesome shield rotate-270
+!! input
+<phptag>
+echo FontAwesome::shield->rotate_270;
+</phptag>
+!! result
+<p><i class="fa fa-shield fa-rotate-270"></i>
+</p>
+!! end
