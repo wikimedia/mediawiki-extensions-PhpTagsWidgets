@@ -76,6 +76,10 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 		return parent::checkArguments( $object, $method, $arguments, $expects );
 	}
 
+	public static function s_getIcons() {
+		return self::$icons;
+	}
+
 	private static $icons = array(
 		'adjust' => 1,
 		'anchor' => 1,
