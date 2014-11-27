@@ -16,7 +16,7 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 	}
 
 	public function getString() {
-		$this->addModule( 'ext.PhpTagsWidgets.FontAwesome', false );
+		$this->addModules( 'ext.PhpTagsWidgets.FontAwesome', false );
 	}
 
 	public function m___construct( $value = null, $properties = null ) {
@@ -51,7 +51,7 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 			if ( $tmp[0] == '_' ) {
 				$tmp = substr( $tmp, 1 );
 			}
-			$prop = $prop = str_replace( '_', '-', strtolower( $tmp ) );
+			$prop = str_replace( '_', '-', strtolower( $tmp ) );
 			if ( isset( self::$options[$prop] ) ) {
 				$value = $this->value;
 				$value[self::PROP][ self::$options[$prop] ] = "fa-$prop";
@@ -607,6 +607,7 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 		'rotate-270' => 6,
 		'flip-horizontal' => 7,
 		'flip-vertical' => 8,
+		'inverse' => 9,
 	);
 
 }

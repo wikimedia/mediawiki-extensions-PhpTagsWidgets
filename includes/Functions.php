@@ -14,4 +14,8 @@ class PhpTagsWidgetsFunc extends PhpTags\GenericFunction {
 		return \PhpTags\Hooks::createObject( func_get_args(), 'Slick' );
 	}
 
+	public static function f_vega() {
+		return \PhpTags\Hooks::createObject( func_get_args(), 'Vega' );
+	}
+
 }

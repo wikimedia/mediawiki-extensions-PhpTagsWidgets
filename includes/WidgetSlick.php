@@ -33,18 +33,9 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 		return parent::m___construct( $properties );
 	}
 
-	public function m_enable() {
-		$this->addToOnReady( 'slick' );
-	}
-
-	public function toString() {
-		$this->m_enable();
-		return parent::toString();
-	}
-
 	public function getString() {
-		$this->addModule( 'ext.PhpTagsWidgets.slick', true );
-		$this->addToData( array( $this->value[self::PROP] ) );
+		$this->addModules( 'ext.PhpTagsWidgets.slick', 'slick' );
+		$this->addData( array( $this->value[self::PROP] ) );
 		$data = $this->value[self::DATA];
 		if ( is_array( $data ) ) {
 			$data = '<div>' . implode( '</div><div>', $this->value[self::DATA] ) . '</div>';
