@@ -6,10 +6,10 @@ if(window.mw){
 				$.fn[ $fn[$k] ].apply( $( '.' + $prefix + $k ) , $phptagsWidgets.data[$k] );
 			}
 		}
-	},
-			$phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' ),
-			$prefix = $phptagsWidgets.prefix,
-			$whenReady = $phptagsWidgets.whenReady;
+	};
+	var $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' );
+	var $prefix = $phptagsWidgets.prefix;
+	var $whenReady = $phptagsWidgets.whenReady;
 
 	if ( $whenReady ) {
 		for ( var $key in $whenReady ) {
