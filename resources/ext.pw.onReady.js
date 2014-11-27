@@ -1,5 +1,8 @@
 /* global window, mw, $ */
 if(window.mw){
+	var $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' );
+	var $prefix = $phptagsWidgets.prefix;
+	var $whenReady = $phptagsWidgets.whenReady;
 	var mwPhpTagsWidgetsDoIt = function ( $fn ) {
 		for ( var $k in $fn ) {
 			if ( $fn.hasOwnProperty($k) ) {
@@ -7,9 +10,6 @@ if(window.mw){
 			}
 		}
 	};
-	var $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' );
-	var $prefix = $phptagsWidgets.prefix;
-	var $whenReady = $phptagsWidgets.whenReady;
 
 	if ( $whenReady ) {
 		for ( var $key in $whenReady ) {
