@@ -43,7 +43,7 @@ class GenericWidget extends GenericObject {
 		return true;
 	}
 
-	function getString() {}
+	public function getString() {}
 
 	public function getClassName() {
 		if ( ! isset( \PhpTags::$globalVariablesScript['Widgets']['prefix'] ) ) {
@@ -67,35 +67,36 @@ class GenericWidget extends GenericObject {
 	 *
 	 * @param array $values
 	 */
-	protected function addToData( $values ) {
+	protected function addData( $values ) {
 		\PhpTags::$globalVariablesScript['Widgets']['data'][(string)$this->classID] = $values;
 	}
 
-	/**
-	 *
-	 * @param mixed $command
-	 */
-	protected function addToOnReady( $command ) {
-		$this->addModule( 'ext.PhpTagsWidgets.onReady', false );
-		\PhpTags::$globalVariablesScript['Widgets']['onReady'][ (string)$this->classID ] = $command;
-	}
-
-	public function m_disable() {
-		unset( \PhpTags::$globalVariablesScript['Widgets']['onReady'][ (string)$this->classID ] );
-	}
-
-	protected function addModule( $module, $wait = false ) {
+	protected function addModules( $modules, $command = false ) {
 		static $output = false;
-		if ( isset( self::$addedModules[$module] ) ) { // Module is already added
-			return;
-		}
 		if ( $output === false ) {
 			$output = \PhpTags\Runtime::getParser()->getOutput();
 		}
-		$output->addModules( $module );
-		self::$addedModules[$module] = true;
-		if ( $wait ) {
-			\PhpTags::$globalVariablesScript['Widgets']['wait'][] = $module;
+
+		$arrayModules = (array)$modules;
+		sort( $arrayModules );
+		$needToAdd = array();
+		foreach ( $arrayModules as $m ) {
+			if ( false === isset( self::$addedModules[$m] ) ) {
+				self::$addedModules[$m] = true;
+				$needToAdd[] = $m;
+			}
+		}
+		if ( $needToAdd ) {
+			$output->addModules( $needToAdd );
+		}
+
+		if ( $command ) {
+			$md = md5( serialize( $arrayModules ) );
+			if ( false === isset( \PhpTags::$globalVariablesScript['Widgets']['whenReady'][$md] ) ) {
+				\PhpTags::$globalVariablesScript['Widgets']['whenReady'][$md]['modules'] = $arrayModules;
+				$this->addModules( 'ext.PhpTagsWidgets.onReady', false );
+			}
+			\PhpTags::$globalVariablesScript['Widgets']['whenReady'][$md]['fn'][ (string)$this->classID ] = $command;
 		}
 	}
 
@@ -105,6 +106,8 @@ class GenericWidget extends GenericObject {
 
 		switch ( strtolower( $property ) ) {
 			case 'class':
+				$expects = \PhpTags\Hooks::TYPE_NOT_OBJECT;
+				break;
 			case 'dir':
 			case 'style':
 				$expects = \PhpTags\Hooks::TYPE_STRING;
@@ -143,6 +146,19 @@ class GenericWidget extends GenericObject {
 				break;
 		}
 		return parent::__call( $name, $arguments );
+	}
+
+	public function b_class( $value ) {
+		if ( $value === null ) {
+			unset( $this->value[self::GENERAL_ATTRIBS]['class'] );
+		} elseif ( $this->checkGenericProperty( 'class', $value ) ) {
+			if ( is_array( $value ) ) {
+				$classes = $value;
+			} else {
+				$classes = explode( ' ', (string)$value );
+			}
+			$this->value[self::GENERAL_ATTRIBS]['class'] = implode( ' ', array_map( '\Sanitizer::escapeClass', $classes ) );
+		}
 	}
 
 }

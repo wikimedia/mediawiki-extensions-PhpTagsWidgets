@@ -9,6 +9,7 @@ class PhpTagsWidgetsInit {
 					'FontAwesome' => 'WidgetFontAwesome',
 					'FA' => 'WidgetFontAwesome', // alias of FontAwesome
 					'FontAwesomeIcon' => 'WidgetFontAwesomeIcon',
+					'Vega' => 'WidgetVega',
 				)
 			);
 		\PhpTags\Hooks::setFunctions( 'PhpTagsWidgetsFunc', self::getFunctions() );
@@ -20,6 +21,7 @@ class PhpTagsWidgetsInit {
 			'fa', // alias of FontAwesome
 			'fontawesome',
 			'slick',
+			'vega',
 		);
 	}
 

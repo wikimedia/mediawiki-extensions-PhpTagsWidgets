@@ -33,7 +33,7 @@ if ( PHPTAGS_HOOK_RELEASE != 5 ) {
 	);
 }
 
-define( 'PHPTAGS_WIDGETS_VERSION' , '1.2.1' );
+define( 'PHPTAGS_WIDGETS_VERSION' , '1.3.0' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -63,6 +63,7 @@ $wgAutoloadClasses['PhpTags\\GenericWidget'] = __DIR__ . '/includes/GenericWidge
 $wgAutoloadClasses['PhpTagsObjects\\WidgetSlick'] = __DIR__ . '/includes/WidgetSlick.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesome'] = __DIR__ . '/includes/WidgetFontAwesome.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesomeIcon'] = __DIR__ . '/includes/WidgetFontAwesomeIcon.php';
+$wgAutoloadClasses['PhpTagsObjects\\WidgetVega'] = __DIR__ . '/includes/WidgetVega.php';
 
 /**
  * Add files to phpunit test
@@ -78,23 +79,45 @@ $wgHooks['UnitTestsList'][] = function ( &$files ) {
 $wgParserTestFiles[] = __DIR__ . '/tests/parser/PhpTagsWidgetsTests.txt';
 
 $tpl = array(
+	'group' => 'PhpTagsWidgets',
 	'localBasePath' => __DIR__ . '/resources',
 	'remoteExtPath' => 'PhpTagsWidgets/resources',
+	'targets' => array( 'mobile', 'desktop' ),
 );
 
 $wgResourceModules['ext.PhpTagsWidgets.onReady'] = array(
-	'group' => 'PhpTagsWidgets',
 	'scripts' => 'ext.pw.onReady.js',
 ) + $tpl;
 
 $wgResourceModules['ext.PhpTagsWidgets.slick'] = array(
-	'group' => 'PhpTagsWidgets',
 	'scripts' => 'libs/slick/slick.js',
 	'styles' => 'libs/slick/slick.css',
 	'dependencies' => array( 'jquery' ),
 ) + $tpl;
 
 $wgResourceModules['ext.PhpTagsWidgets.FontAwesome'] = array(
-	'group' => 'PhpTagsWidgets',
 	'styles' => 'libs/font-awesome/css/font-awesome.css',
 ) + $tpl;
+
+$wgResourceModules['ext.PhpTagsWidgets.libs.d3'] = array(
+	'scripts' => 'libs/d3/d3.js',
+) + $tpl;
+
+$wgResourceModules['ext.PhpTagsWidgets.libs.topojson'] = array(
+	'scripts' => 'libs/topojson/topojson.js',
+) + $tpl;
+
+$wgResourceModules['ext.PhpTagsWidgets.vega'] = array(
+	'scripts' => array(
+		'libs/vega/vega.js',
+		'ext.pw.vega.js'
+		),
+	'dependencies' => array( 'ext.PhpTagsWidgets.libs.d3', 'ext.PhpTagsWidgets.libs.topojson' ),
+) + $tpl;
+
+/**
+ * Array of domains that the vega code is allowed to pull data from.
+ * An empty array disables any external data (inline only).
+ * If false, there are no restrictions and it will be opened for the XSS attacks!
+ */
+$wgPhpTagsWidgetVegaDomainWhiteList = array();

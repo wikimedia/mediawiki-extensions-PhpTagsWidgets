@@ -208,6 +208,45 @@ echo $fai;
 !! end
 
 !! test
+FontAwesome quote-left 3x border pull-left class foo bar
+!! input
+<phptag>
+$fai = FA::quote_left->_3x->border;
+$fai->class = 'pull-left foo bar';
+echo $fai;
+</phptag>
+!! result
+<p><i class="fa fa-quote-left fa-3x fa-border pull-left foo bar"></i>
+</p>
+!! end
+
+!! test
+FontAwesome quote-left 3x border pull-left classes foo bar
+!! input
+<phptag>
+$fai = FA::quote_left->_3x->border;
+$fai->class = ['pull-left', 'foo', 'bar'];
+echo $fai;
+</phptag>
+!! result
+<p><i class="fa fa-quote-left fa-3x fa-border pull-left foo bar"></i>
+</p>
+!! end
+
+!! test
+FontAwesome quote-left 3x border pull-left classes foo bar sanitize
+!! input
+<phptag>
+$fai = FA::quote_left->_3x->border;
+$fai->class = ['pull-left', 'foo bar'];
+echo $fai;
+</phptag>
+!! result
+<p><i class="fa fa-quote-left fa-3x fa-border pull-left foo_bar"></i>
+</p>
+!! end
+
+!! test
 FontAwesomeIcon shield rotate-270
 !! input
 <phptag>
