@@ -33,7 +33,7 @@ if ( PHPTAGS_HOOK_RELEASE != 5 ) {
 	);
 }
 
-define( 'PHPTAGS_WIDGETS_VERSION' , '1.3.2' );
+define( 'PHPTAGS_WIDGETS_VERSION' , '1.3.3' );
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -92,7 +92,7 @@ $wgResourceModules['ext.PhpTagsWidgets.onReady'] = array(
 $wgResourceModules['ext.PhpTagsWidgets.slick'] = array(
 	'scripts' => 'libs/slick/slick.js',
 	'styles' => 'libs/slick/slick.css',
-	'dependencies' => array( 'jquery' ),
+	//'dependencies' => array( 'jquery' ),
 ) + $tpl;
 
 $wgResourceModules['ext.PhpTagsWidgets.FontAwesome'] = array(
