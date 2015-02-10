@@ -28,6 +28,10 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 		'variablewidth' => 'variableWidth',
 	);
 
+	public static function f_slick() {
+		return \PhpTags\Hooks::createObject( func_get_args(), 'Slick' );
+	}
+
 	public function m___construct( $value = null, $properties = null ) {
 		$this->value[self::DATA] = $value;
 		return parent::m___construct( $properties );
@@ -41,84 +45,6 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			$data = '<div>' . implode( '</div><div>', $this->value[self::DATA] ) . '</div>';
 		}
 		return $data;
-	}
-
-	public static function checkArguments( $object, $method, $arguments, $expects = false ) {
-		switch ( $method ) {
-			case '__construct':
-				$expects = array(
-					\PhpTags\Hooks::TYPE_MIXED,
-					\PhpTags\Hooks::TYPE_ARRAY,
-					\PhpTags\Hooks::EXPECTS_MAXIMUM_PARAMETERS => 2,
-				);
-				break;
-		}
-		return parent::checkArguments( $object, $method, $arguments, $expects );
-	}
-
-	private function checkProperty( $property, &$value ) {
-		$arguments = array( &$value );
-		$expects = false;
-
-		switch ( $property ) {
-			case 'accessibility':
-			case 'adaptiveHeight':
-			case 'autoplay':
-			case 'arrows':
-			case 'centerMode':
-			case 'dots':
-			case 'draggable':
-			case 'fade':
-			case 'focusOnSelect':
-			case 'infinite':
-			case 'pauseOnHover':
-			case 'pauseOnDotsHover':
-			case 'swipe':
-			case 'swipeToSlide':
-			case 'touchMove':
-			case 'variableWidth':
-			case 'vertical':
-			case 'rtl':
-			case 'useCSS':
-				$expects = \PhpTags\Hooks::TYPE_BOOL;
-				break;
-			case 'autoplaySpeed':
-			case 'initialSlide':
-			case 'slidesToShow':
-			case 'slidesToScroll':
-			case 'speed':
-			case 'touchThreshold':
-				$expects = \PhpTags\Hooks::TYPE_INT;
-				break;
-			case 'centerPadding':
-// @todo	case 'appendArrows':
-// @todo	case 'prevArrow':
-// @todo	case 'nextArrow':
-			case 'cssEase':
-// @???todo case 'customPaging': ???
-// @todo	case 'easing':
-//			case 'lazyLoad': // do not allow it!!!
-			case 'slide':
-				$expects = \PhpTags\Hooks::TYPE_STRING;
-				break;
-			case 'asnavfor':
-				$expects = 'Slick';
-				break;
-// @todo	case 'responsive':
-//				$expects = \PhpTags\Hooks::TYPE_ARRAY;
-//				break;
-			default:
-				return true;
-		}
-
-		$check = parent::checkArguments( $this->name, $property, $arguments, array($expects) );
-		if ( $check === true ) {
-			return true;
-		}
-		if ( $check instanceof \PhpTags\PhpTagsException && $check->getCode() === \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER ) {
-			\PhpTags\Runtime::$transit[PHPTAGS_TRANSIT_EXCEPTION][] = new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_EXPECTS_PROPERTY, $check->params );
-		}
-		return false;
 	}
 
 	public function __call( $name, $arguments ) {
@@ -143,8 +69,14 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			case 'touchthreshold':
 			case 'usecss':
 			case 'variablewidth':
+// @todo	case 'appendarrows':
+// @todo	case 'prevarrow':
+// @todo	case 'nextarrow':
+// @???todo case 'custompaging': ???
 				$property = self::$trueCase[$subname];
 				// break is not necessary here
+// @todo	case 'easing':
+// @todo	case 'responsive':
 			case 'accessibility':
 			case 'autoplay':
 			case 'arrows':
@@ -163,10 +95,10 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 				} elseif ( $callType === 'b' ) { // set property
 					if ( $arguments[0] === null ) {
 						unset( $this->value[self::PROP][$property] );
-					} elseif ( $this->checkProperty( $property, $arguments[0] ) ) {
+					} else {
 						$this->value[self::PROP][$property] = $arguments[0];
 					}
-					return $this;
+					return;
 				}
 				break;
 		}
@@ -182,7 +114,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 		$matches = array();
 		if ( $value === null ) {
 			unset( $this->value[self::PROP]['centerPadding'] );
-		} elseif( $this->checkProperty( 'centerPadding', $value ) ) {
+		} else {
 			if ( preg_match( '/\d+(?:px|%)/i', $value, $matches ) ) {
 				$this->value[self::PROP]['centerPadding'] = $matches[0];
 			} else {
@@ -200,7 +132,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 		if ( $value === null ) {
 			unset( $this->value[self::PROP]['rtl'] );
 			$this->b_dir( null );
-		} elseif( $this->checkProperty( 'rtl', $value ) ) {
+		} else {
 			$this->value[self::PROP]['rtl'] = $value;
 			if ( $value ) {
 				$this->b_dir( 'rtl' );
@@ -215,9 +147,6 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 	 * @return \PhpTagsObjects\WidgetSlick
 	 */
 	public function b_asNavFor( $value ) {
-		if( $value !== null && !$this->checkProperty( 'asNavFor', $value ) ) {
-			$value = null;
-		}
 		$oldValue = isset($this->value[self::PRIVATE_PROP]['asNavFor']) ? $this->value[self::PRIVATE_PROP]['asNavFor'] : null;
 		if ( $oldValue === $value ) {
 			return;
@@ -247,8 +176,11 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			unset( $this->value[self::PROP]['asNavFor'] );
 		} else {
 			$this->value[self::PRIVATE_PROP]['asNavFor'] = $value;
-			$this->value[self::PROP]['asNavFor'] = '.' . $value->getClassName();
+			$this->value[self::PROP]['asNavFor'] = '.' . $value->getCssClassName();
 		}
 	}
+
+	// Never allow it (it is XSS door)
+	public function b_lazyLoad() {}
 
 }

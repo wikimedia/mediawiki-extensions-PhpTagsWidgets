@@ -36,8 +36,7 @@ class GenericWidget extends GenericObject {
 			return true;
 		} elseif ( is_array( $properties ) ) {
 			foreach ( $properties as $prop => $val ) {
-				$handler = "b_$prop";
-				$this->$handler( $val );
+				Hooks::callSetObjectsProperty( $prop, $this, $val );
 			}
 		}
 		return true;
@@ -45,7 +44,7 @@ class GenericWidget extends GenericObject {
 
 	public function getString() {}
 
-	public function getClassName() {
+	public function getCssClassName() {
 		if ( ! isset( \PhpTags::$globalVariablesScript['Widgets']['prefix'] ) ) {
 			\PhpTags::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
 		}
@@ -54,7 +53,7 @@ class GenericWidget extends GenericObject {
 
 	public function toString() {
 		$attribs = $this->value[self::GENERAL_ATTRIBS];
-		$class = $this->getClassName();
+		$class = $this->getCssClassName();
 		$attribs['class'] = isset( $attribs['class'] ) ? "$class {$attribs['class']}" : $class;
 		return \Html::rawElement( $this->element, $attribs, $this->getString() );
 	}
@@ -74,7 +73,7 @@ class GenericWidget extends GenericObject {
 	protected function addModules( $modules, $command = false ) {
 		static $output = false;
 		if ( $output === false ) {
-			$output = \PhpTags\Runtime::getParser()->getOutput();
+			$output = \PhpTags\Runtime::$parser->getOutput();
 		}
 
 		$arrayModules = (array)$modules;
@@ -100,30 +99,6 @@ class GenericWidget extends GenericObject {
 		}
 	}
 
-	private function checkGenericProperty( $property, &$value ) {
-		$arguments = array( &$value );
-		$expects = false;
-
-		switch ( strtolower( $property ) ) {
-			case 'class':
-				$expects = \PhpTags\Hooks::TYPE_NOT_OBJECT;
-				break;
-			case 'dir':
-			case 'style':
-				$expects = \PhpTags\Hooks::TYPE_STRING;
-				break;
-		}
-
-		$check = parent::checkArguments( $this->name, $property, $arguments, array($expects) );
-		if ( $check === true ) {
-			return true;
-		}
-		if ( $check instanceof \PhpTags\PhpTagsException && $check->getCode() === \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER ) {
-			\PhpTags\Runtime::$transit[PHPTAGS_TRANSIT_EXCEPTION][] = new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_EXPECTS_PROPERTY, $check->params );
-		}
-		return false;
-	}
-
 	public function __call( $name, $arguments ) {
 		list ( $callType, $tmp ) = explode( '_', $name, 2 );
 		$subname = strtolower( $tmp );
@@ -132,16 +107,18 @@ class GenericWidget extends GenericObject {
 		switch ( $subname ) {
 			case 'class':
 			case 'dir':
+			case 'lang':
 			case 'style':
+			case 'title':
 				if ( $callType === 'p' ) { // get property
 					return isset( $this->value[self::GENERAL_ATTRIBS][$property] ) ? $this->value[self::GENERAL_ATTRIBS][$property] : null;
 				} elseif ( $callType === 'b' ) { // set property
 					if ( $arguments[0] === null ) {
 						unset( $this->value[self::GENERAL_ATTRIBS][$property] );
-					} elseif ( $this->checkGenericProperty( $subname, $arguments[0] ) ) {
+					} else {
 						$this->value[self::GENERAL_ATTRIBS][$property] = $arguments[0];
 					}
-					return $this;
+					return;
 				}
 				break;
 		}
@@ -151,14 +128,14 @@ class GenericWidget extends GenericObject {
 	public function b_class( $value ) {
 		if ( $value === null ) {
 			unset( $this->value[self::GENERAL_ATTRIBS]['class'] );
-		} elseif ( $this->checkGenericProperty( 'class', $value ) ) {
-			if ( is_array( $value ) ) {
-				$classes = $value;
-			} else {
-				$classes = explode( ' ', (string)$value );
-			}
-			$this->value[self::GENERAL_ATTRIBS]['class'] = implode( ' ', array_map( '\Sanitizer::escapeClass', $classes ) );
+			return;
 		}
+		if ( is_array( $value ) ) {
+			$classes = $value;
+		} else {
+			$classes = array_filter( explode( ' ', (string)$value ) );
+		}
+		$this->value[self::GENERAL_ATTRIBS]['class'] = implode( ' ', array_map( '\Sanitizer::escapeClass', $classes ) );
 	}
 
 }

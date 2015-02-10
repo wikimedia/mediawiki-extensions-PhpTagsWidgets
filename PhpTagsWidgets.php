@@ -15,25 +15,7 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-if ( !defined( 'PHPTAGS_VERSION' ) ) {
-	die( 'ERROR: The <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">extension PhpTags</a> must be installed for the extension PhpTags Widgets to run!' );
-}
-
-$needVersion = '3.9.0';
-if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
-	die(
-		'<b>Error:</b> This version of extension PhpTags Widgets needs <a href="https://www.mediawiki.org/wiki/Extension:PhpTags">PhpTags</a> ' . $needVersion . ' or later.
-		You are currently using version ' . PHPTAGS_VERSION . '.<br />'
-	);
-}
-
-if ( PHPTAGS_HOOK_RELEASE != 5 ) {
-	die (
-			'<b>Error:</b> This version of extension PhpTags Widgets is not compatible to current version of the PhpTags extension.'
-	);
-}
-
-define( 'PHPTAGS_WIDGETS_VERSION' , '1.3.3' );
+const PHPTAGS_WIDGETS_VERSION = '1.4.0';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -49,16 +31,31 @@ $wgExtensionCredits['phptags'][] = array(
 $wgMessagesDirs['PhpTagsWidgets'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['PhpTagsWidgets'] = __DIR__ . '/PhpTagsWidgets.i18n.php';
 
-// Specify the function that will initialize the parser function.
 /**
  * @codeCoverageIgnore
  */
-$wgHooks['PhpTagsRuntimeFirstInit'][] = 'PhpTagsWidgetsInit::initializeRuntime';
+$wgHooks['ParserFirstCallInit'][] = function() {
+	if ( !defined( 'PHPTAGS_VERSION' ) ) {
+	throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Widgets extension." );
+	}
+	$needVersion = '4.0.2';
+	if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
+		throw new MWException( "\n\nThis version of the PhpTags Widgets extension requires the PhpTags extension $needVersion or above.\n You have " . PHPTAGS_VERSION . ". Please update it." );
+	}
+	if ( PHPTAGS_HOOK_RELEASE != 6 ) {
+		throw new MWException( "\n\nThis version of the PhpTags Widgets extension is outdated and not compatible with current version of the PhpTags extension.\n Please update it." );
+	}
+	return true;
+};
+
+/**
+ * @codeCoverageIgnore
+ */
+$wgHooks['PhpTagsRuntimeFirstInit'][] = function() {
+	\PhpTags\Hooks::addJsonFile( __DIR__ . '/PhpTagsWidgets.json', PHPTAGS_WIDGETS_VERSION );
+};
 
 // Preparing classes for autoloading
-$wgAutoloadClasses['PhpTagsWidgetsInit'] = __DIR__ . '/PhpTagsWidgets.init.php';
-
-$wgAutoloadClasses['PhpTagsWidgetsFunc'] = __DIR__ . '/includes/Functions.php';
 $wgAutoloadClasses['PhpTags\\GenericWidget'] = __DIR__ . '/includes/GenericWidget.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetSlick'] = __DIR__ . '/includes/WidgetSlick.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesome'] = __DIR__ . '/includes/WidgetFontAwesome.php';
