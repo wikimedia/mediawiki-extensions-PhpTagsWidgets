@@ -11,7 +11,15 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 
 	protected $element = 'i';
 
-	public function getClassName() {
+	public static function f_fa() {
+		return \PhpTags\Hooks::createObject( func_get_args(), 'FontAwesomeIcon' );
+	}
+
+	public static function f_fontawesome() {
+		return \PhpTags\Hooks::createObject( func_get_args(), 'FontAwesomeIcon' );
+	}
+
+	public function getCssClassName() {
 		return 'fa fa-' . $this->value[self::DATA] . ' ' . \implode( ' ', array_values( $this->value[self::PROP] ) );
 	}
 
@@ -33,7 +41,7 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 					if ( isset( self::$options[$prop] ) ) {
 						$this->value[self::PROP][ self::$options[$prop] ] = "fa-$prop";
 					} else {
-						\PhpTags\Runtime::$transit[PHPTAGS_TRANSIT_EXCEPTION][] = new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_PROPERTY, array($this->name, $prop) );
+						\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_PROPERTY, array($this->name, $prop) ) );
 					}
 				} else {
 					$handler = "b_$key";

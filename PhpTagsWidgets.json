@@ -1,0 +1,868 @@
+{
+	"objects": {
+		"GenericWidget": {
+			"METHODS": {
+				"__construct" : {
+					"parameters": [
+						{ "type": "array", "name": "properties", "default": "null" }
+					],
+					"return": "Object",
+					"desc": "Returns new object"
+				}
+			},
+			"PROPERTIES": {
+				"class": {
+					"type": "not object",
+					"get": "array",
+					"desc": "Sets HTML attribute 'class' for object"
+				},
+				"dir": {
+					"type": "string",
+					"desc": "Sets HTML attribute 'dir' for object"
+				},
+				"lang": {
+					"type": "string",
+					"desc": "Sets HTML attribute 'lang' for object"
+				},
+				"style": {
+					"type": "string",
+					"desc": "Sets HTML attribute 'style' for object"
+				},
+				"title": {
+					"type": "string",
+					"desc": "Sets HTML attribute 'title' for object"
+				}
+			}
+		},
+		"Slick": {
+			"class": "WidgetSlick",
+			"parent": "GenericWidget",
+			"METHODS": {
+				"__construct" : {
+					"parameters": [
+						{ "type": "mixed", "name": "slides", "default": "null" },
+						{ "type": "array", "name": "properties", "default": "null" }
+					],
+					"return": "Slick",
+					"desc": "Returns new Slick object"
+				}
+			},
+			"PROPERTIES": {
+				"accessibility": {
+					"type": "bool",
+					"desc": "Enables tabbing and arrow key navigation"
+				},
+				"adaptiveHeight": {
+					"type": "bool",
+					"desc": "Enables adaptive height for single slide horizontal carousels"
+				},
+				"autoplay": {
+					"type": "bool",
+					"desc": "Enables Autoplay"
+				},
+				"autoplaySpeed": {
+					"type": "int",
+					"desc": "Autoplay Speed in milliseconds"
+				},
+				"arrows": {
+					"type": "bool",
+					"desc": "Prev/Next Arrows"
+				},
+				"asNavFor": {
+					"type": "Slick",
+					"desc": "Set the slider to be the navigation of other slider"
+				},
+				"centerMode": {
+					"type": "bool",
+					"desc": "Enables centered view with partial prev/next slides. Use with odd numbered slidesToShow counts"
+				},
+				"centerPadding": {
+					"type": "string",
+					"desc": "Side padding when in center mode (px or %)"
+				},
+				"cssEase": {
+					"type": "string",
+					"desc": "CSS3 Animation Easing"
+				},
+				"dots": {
+					"type": "bool",
+					"desc": "Show dot indicators"
+				},
+				"draggable": {
+					"type": "bool",
+					"desc": "Enable mouse dragging"
+				},
+				"fade": {
+					"type": "bool",
+					"desc": "Enable fade"
+				},
+				"focusOnSelect": {
+					"type": "bool",
+					"desc": "Enable focus on selected element (click)"
+				},
+				"infinite": {
+					"type": "bool",
+					"desc": "Infinite loop sliding"
+				},
+				"initialSlide": {
+					"type": "int",
+					"desc": "Slide to start on"
+				},
+				"pauseOnHover": {
+					"type": "bool",
+					"desc": "Pause Autoplay On Hover"
+				},
+				"pauseOnDotsHover": {
+					"type": "bool",
+					"desc": "Pause Autoplay when a dot is hovered"
+				},
+				"slide": {
+					"type": "string",
+					"desc": "Element query to use as slide"
+				},
+				"slidesToShow": {
+					"type": "int",
+					"desc": "# of slides to show"
+				},
+				"slidesToScroll": {
+					"type": "int",
+					"desc": "# of slides to scroll"
+				},
+				"speed": {
+					"type": "int",
+					"desc": "Slide/Fade animation speed"
+				},
+				"swipe": {
+					"type": "bool",
+					"desc": "Enable swiping"
+				},
+				"swipeToSlide": {
+					"type": "bool",
+					"desc": "Allow users to drag or swipe directly to a slide irrespective of slidesToScroll"
+				},
+				"touchMove": {
+					"type": "bool",
+					"desc": "Enable slide motion with touch"
+				},
+				"touchThreshold": {
+					"type": "int",
+					"desc": "To advance slides, the user must swipe a length of (1/touchThreshold) * the width of the slider"
+				},
+				"useCSS": {
+					"type": "bool",
+					"desc": "Enable/Disable CSS Transitions"
+				},
+				"variableWidth": {
+					"type": "bool",
+					"desc": "Variable width slides"
+				},
+				"vertical": {
+					"type": "bool",
+					"desc": "Vertical slide mode"
+				},
+				"rtl": {
+					"type": "bool",
+					"desc": "Change the slider's direction to become right-to-lef"
+				}
+			}
+		},
+		"FontAwesomeIcon": {
+			"class": "WidgetFontAwesomeIcon",
+			"parent": "GenericWidget",
+			"METHODS": {
+				"__construct" : {
+					"parameters": [
+						{ "type": "string", "name": "iconName" },
+						{ "type": "array", "name": "properties", "default": "null" }
+					],
+					"return": "FontAwesomeIcon",
+					"desc": "Returns new FontAwesomeIcon object"
+				},
+				"getIcons": {
+					"parameters": [],
+					"return": "array",
+					"desc": "Returns array of available icons"
+				}
+			},
+			"PROPERTIES": {
+				"lg": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Increases icon size to 33% relative to their container"
+				},
+				"_2x": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Increases icon size to 2x relative to their container"
+				},
+				"_3x": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Increases icon size to 3x relative to their container"
+				},
+				"_4x": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Increases icon size to 4x relative to their container"
+				},
+				"_5x": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Increases icon size to 5x relative to their container"
+				},
+				"fw": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Sets icons at a fixed width"
+				},
+				"li": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Replaces default bullets in unordered lists"
+				},
+				"border": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Adds border"
+				},
+				"spin": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Gets any icon to rotate"
+				},
+				"rotate_90": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Rotates icon on 90 degree"
+				},
+				"rotate_180": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Rotates icon on 180 degree"
+				},
+				"rotate_270": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Rotates icon on 270 degree"
+				},
+				"flip_horizontal": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Flips icon horizontally"
+				},
+				"flip_vertical": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Flips icon vertically"
+				},
+				"flip_vertical": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Flips icon vertically"
+				},
+				"inverse": {
+					"type": "bool",
+					"get": "FontAwesomeIcon",
+					"desc": "Uses an alternative icon color"
+				}
+			}
+		},
+		"FontAwesome": {
+			"class": "WidgetFontAwesome",
+			"CONSTANTS": {
+				"adjust": { "type": "FontAwesomeIcon" },
+				"anchor": { "type": "FontAwesomeIcon" },
+				"archive": { "type": "FontAwesomeIcon" },
+				"area_chart": { "type": "FontAwesomeIcon" },
+				"arrows": { "type": "FontAwesomeIcon" },
+				"arrows_h": { "type": "FontAwesomeIcon" },
+				"arrows_v": { "type": "FontAwesomeIcon" },
+				"asterisk": { "type": "FontAwesomeIcon" },
+				"at": { "type": "FontAwesomeIcon" },
+				"automobile": { "type": "FontAwesomeIcon" },
+				"ban": { "type": "FontAwesomeIcon" },
+				"bank": { "type": "FontAwesomeIcon" },
+				"bar_chart": { "type": "FontAwesomeIcon" },
+				"bar_chart_o": { "type": "FontAwesomeIcon" },
+				"barcode": { "type": "FontAwesomeIcon" },
+				"bars": { "type": "FontAwesomeIcon" },
+				"beer": { "type": "FontAwesomeIcon" },
+				"bell": { "type": "FontAwesomeIcon" },
+				"bell_o": { "type": "FontAwesomeIcon" },
+				"bell_slash": { "type": "FontAwesomeIcon" },
+				"bell_slash_o": { "type": "FontAwesomeIcon" },
+				"bicycle": { "type": "FontAwesomeIcon" },
+				"binoculars": { "type": "FontAwesomeIcon" },
+				"birthday_cake": { "type": "FontAwesomeIcon" },
+				"bolt": { "type": "FontAwesomeIcon" },
+				"bomb": { "type": "FontAwesomeIcon" },
+				"book": { "type": "FontAwesomeIcon" },
+				"bookmark": { "type": "FontAwesomeIcon" },
+				"bookmark_o": { "type": "FontAwesomeIcon" },
+				"briefcase": { "type": "FontAwesomeIcon" },
+				"bug": { "type": "FontAwesomeIcon" },
+				"building": { "type": "FontAwesomeIcon" },
+				"building_o": { "type": "FontAwesomeIcon" },
+				"bullhorn": { "type": "FontAwesomeIcon" },
+				"bullseye": { "type": "FontAwesomeIcon" },
+				"bus": { "type": "FontAwesomeIcon" },
+				"cab": { "type": "FontAwesomeIcon" },
+				"calculator": { "type": "FontAwesomeIcon" },
+				"calendar": { "type": "FontAwesomeIcon" },
+				"calendar_o": { "type": "FontAwesomeIcon" },
+				"camera": { "type": "FontAwesomeIcon" },
+				"camera_retro": { "type": "FontAwesomeIcon" },
+				"car": { "type": "FontAwesomeIcon" },
+				"caret_square_o_down": { "type": "FontAwesomeIcon" },
+				"caret_square_o_left": { "type": "FontAwesomeIcon" },
+				"caret_square_o_right": { "type": "FontAwesomeIcon" },
+				"caret_square_o_up": { "type": "FontAwesomeIcon" },
+				"cc": { "type": "FontAwesomeIcon" },
+				"certificate": { "type": "FontAwesomeIcon" },
+				"check": { "type": "FontAwesomeIcon" },
+				"check_circle": { "type": "FontAwesomeIcon" },
+				"check_circle_o": { "type": "FontAwesomeIcon" },
+				"check_square": { "type": "FontAwesomeIcon" },
+				"check_square_o": { "type": "FontAwesomeIcon" },
+				"child": { "type": "FontAwesomeIcon" },
+				"circle": { "type": "FontAwesomeIcon" },
+				"circle_o": { "type": "FontAwesomeIcon" },
+				"circle_o_notch": { "type": "FontAwesomeIcon" },
+				"circle_thin": { "type": "FontAwesomeIcon" },
+				"clock_o": { "type": "FontAwesomeIcon" },
+				"close": { "type": "FontAwesomeIcon" },
+				"cloud": { "type": "FontAwesomeIcon" },
+				"cloud_download": { "type": "FontAwesomeIcon" },
+				"cloud_upload": { "type": "FontAwesomeIcon" },
+				"code": { "type": "FontAwesomeIcon" },
+				"code_fork": { "type": "FontAwesomeIcon" },
+				"coffee": { "type": "FontAwesomeIcon" },
+				"cog": { "type": "FontAwesomeIcon" },
+				"cogs": { "type": "FontAwesomeIcon" },
+				"comment": { "type": "FontAwesomeIcon" },
+				"comment_o": { "type": "FontAwesomeIcon" },
+				"comments": { "type": "FontAwesomeIcon" },
+				"comments_o": { "type": "FontAwesomeIcon" },
+				"compass": { "type": "FontAwesomeIcon" },
+				"copyright": { "type": "FontAwesomeIcon" },
+				"credit_card": { "type": "FontAwesomeIcon" },
+				"crop": { "type": "FontAwesomeIcon" },
+				"crosshairs": { "type": "FontAwesomeIcon" },
+				"cube": { "type": "FontAwesomeIcon" },
+				"cubes": { "type": "FontAwesomeIcon" },
+				"cutlery": { "type": "FontAwesomeIcon" },
+				"dashboard": { "type": "FontAwesomeIcon" },
+				"database": { "type": "FontAwesomeIcon" },
+				"desktop": { "type": "FontAwesomeIcon" },
+				"dot_circle_o": { "type": "FontAwesomeIcon" },
+				"download": { "type": "FontAwesomeIcon" },
+				"edit": { "type": "FontAwesomeIcon" },
+				"ellipsis_h": { "type": "FontAwesomeIcon" },
+				"ellipsis_v": { "type": "FontAwesomeIcon" },
+				"envelope": { "type": "FontAwesomeIcon" },
+				"envelope_o": { "type": "FontAwesomeIcon" },
+				"envelope_square": { "type": "FontAwesomeIcon" },
+				"eraser": { "type": "FontAwesomeIcon" },
+				"exchange": { "type": "FontAwesomeIcon" },
+				"exclamation": { "type": "FontAwesomeIcon" },
+				"exclamation_circle": { "type": "FontAwesomeIcon" },
+				"exclamation_triangle": { "type": "FontAwesomeIcon" },
+				"external_link": { "type": "FontAwesomeIcon" },
+				"external_link_square": { "type": "FontAwesomeIcon" },
+				"eye": { "type": "FontAwesomeIcon" },
+				"eye_slash": { "type": "FontAwesomeIcon" },
+				"eyedropper": { "type": "FontAwesomeIcon" },
+				"fax": { "type": "FontAwesomeIcon" },
+				"female": { "type": "FontAwesomeIcon" },
+				"fighter_jet": { "type": "FontAwesomeIcon" },
+				"file_archive_o": { "type": "FontAwesomeIcon" },
+				"file_audio_o": { "type": "FontAwesomeIcon" },
+				"file_code_o": { "type": "FontAwesomeIcon" },
+				"file_excel_o": { "type": "FontAwesomeIcon" },
+				"file_image_o": { "type": "FontAwesomeIcon" },
+				"file_movie_o": { "type": "FontAwesomeIcon" },
+				"file_pdf_o": { "type": "FontAwesomeIcon" },
+				"file_photo_o": { "type": "FontAwesomeIcon" },
+				"file_picture_o": { "type": "FontAwesomeIcon" },
+				"file_powerpoint_o": { "type": "FontAwesomeIcon" },
+				"file_sound_o": { "type": "FontAwesomeIcon" },
+				"file_video_o": { "type": "FontAwesomeIcon" },
+				"file_word_o": { "type": "FontAwesomeIcon" },
+				"file_zip_o": { "type": "FontAwesomeIcon" },
+				"film": { "type": "FontAwesomeIcon" },
+				"filter": { "type": "FontAwesomeIcon" },
+				"fire": { "type": "FontAwesomeIcon" },
+				"fire_extinguisher": { "type": "FontAwesomeIcon" },
+				"flag": { "type": "FontAwesomeIcon" },
+				"flag_checkered": { "type": "FontAwesomeIcon" },
+				"flag_o": { "type": "FontAwesomeIcon" },
+				"flash": { "type": "FontAwesomeIcon" },
+				"flask": { "type": "FontAwesomeIcon" },
+				"folder": { "type": "FontAwesomeIcon" },
+				"folder_o": { "type": "FontAwesomeIcon" },
+				"folder_open": { "type": "FontAwesomeIcon" },
+				"folder_open_o": { "type": "FontAwesomeIcon" },
+				"frown_o": { "type": "FontAwesomeIcon" },
+				"futbol_o": { "type": "FontAwesomeIcon" },
+				"gamepad": { "type": "FontAwesomeIcon" },
+				"gavel": { "type": "FontAwesomeIcon" },
+				"gear": { "type": "FontAwesomeIcon" },
+				"gears": { "type": "FontAwesomeIcon" },
+				"gift": { "type": "FontAwesomeIcon" },
+				"glass": { "type": "FontAwesomeIcon" },
+				"globe": { "type": "FontAwesomeIcon" },
+				"graduation_cap": { "type": "FontAwesomeIcon" },
+				"group": { "type": "FontAwesomeIcon" },
+				"hdd_o": { "type": "FontAwesomeIcon" },
+				"headphones": { "type": "FontAwesomeIcon" },
+				"heart": { "type": "FontAwesomeIcon" },
+				"heart_o": { "type": "FontAwesomeIcon" },
+				"history": { "type": "FontAwesomeIcon" },
+				"home": { "type": "FontAwesomeIcon" },
+				"image": { "type": "FontAwesomeIcon" },
+				"inbox": { "type": "FontAwesomeIcon" },
+				"info": { "type": "FontAwesomeIcon" },
+				"info_circle": { "type": "FontAwesomeIcon" },
+				"institution": { "type": "FontAwesomeIcon" },
+				"key": { "type": "FontAwesomeIcon" },
+				"keyboard_o": { "type": "FontAwesomeIcon" },
+				"language": { "type": "FontAwesomeIcon" },
+				"laptop": { "type": "FontAwesomeIcon" },
+				"leaf": { "type": "FontAwesomeIcon" },
+				"legal": { "type": "FontAwesomeIcon" },
+				"lemon_o": { "type": "FontAwesomeIcon" },
+				"level_down": { "type": "FontAwesomeIcon" },
+				"level_up": { "type": "FontAwesomeIcon" },
+				"life_bouy": { "type": "FontAwesomeIcon" },
+				"life_buoy": { "type": "FontAwesomeIcon" },
+				"life_ring": { "type": "FontAwesomeIcon" },
+				"life_saver": { "type": "FontAwesomeIcon" },
+				"lightbulb_o": { "type": "FontAwesomeIcon" },
+				"line_chart": { "type": "FontAwesomeIcon" },
+				"location_arrow": { "type": "FontAwesomeIcon" },
+				"lock": { "type": "FontAwesomeIcon" },
+				"magic": { "type": "FontAwesomeIcon" },
+				"magnet": { "type": "FontAwesomeIcon" },
+				"mail_forward": { "type": "FontAwesomeIcon" },
+				"mail_reply": { "type": "FontAwesomeIcon" },
+				"mail_reply_all": { "type": "FontAwesomeIcon" },
+				"male": { "type": "FontAwesomeIcon" },
+				"map_marker": { "type": "FontAwesomeIcon" },
+				"meh_o": { "type": "FontAwesomeIcon" },
+				"microphone": { "type": "FontAwesomeIcon" },
+				"microphone_slash": { "type": "FontAwesomeIcon" },
+				"minus": { "type": "FontAwesomeIcon" },
+				"minus_circle": { "type": "FontAwesomeIcon" },
+				"minus_square": { "type": "FontAwesomeIcon" },
+				"minus_square_o": { "type": "FontAwesomeIcon" },
+				"mobile": { "type": "FontAwesomeIcon" },
+				"mobile_phone": { "type": "FontAwesomeIcon" },
+				"money": { "type": "FontAwesomeIcon" },
+				"moon_o": { "type": "FontAwesomeIcon" },
+				"mortar_board": { "type": "FontAwesomeIcon" },
+				"music": { "type": "FontAwesomeIcon" },
+				"navicon": { "type": "FontAwesomeIcon" },
+				"newspaper_o": { "type": "FontAwesomeIcon" },
+				"paint_brush": { "type": "FontAwesomeIcon" },
+				"paper_plane": { "type": "FontAwesomeIcon" },
+				"paper_plane_o": { "type": "FontAwesomeIcon" },
+				"paw": { "type": "FontAwesomeIcon" },
+				"pencil": { "type": "FontAwesomeIcon" },
+				"pencil_square": { "type": "FontAwesomeIcon" },
+				"pencil_square_o": { "type": "FontAwesomeIcon" },
+				"phone": { "type": "FontAwesomeIcon" },
+				"phone_square": { "type": "FontAwesomeIcon" },
+				"photo": { "type": "FontAwesomeIcon" },
+				"picture_o": { "type": "FontAwesomeIcon" },
+				"pie_chart": { "type": "FontAwesomeIcon" },
+				"plane": { "type": "FontAwesomeIcon" },
+				"plug": { "type": "FontAwesomeIcon" },
+				"plus": { "type": "FontAwesomeIcon" },
+				"plus_circle": { "type": "FontAwesomeIcon" },
+				"plus_square": { "type": "FontAwesomeIcon" },
+				"plus_square_o": { "type": "FontAwesomeIcon" },
+				"power_off": { "type": "FontAwesomeIcon" },
+				"print": { "type": "FontAwesomeIcon" },
+				"puzzle_piece": { "type": "FontAwesomeIcon" },
+				"qrcode": { "type": "FontAwesomeIcon" },
+				"question": { "type": "FontAwesomeIcon" },
+				"question_circle": { "type": "FontAwesomeIcon" },
+				"quote_left": { "type": "FontAwesomeIcon" },
+				"quote_right": { "type": "FontAwesomeIcon" },
+				"random": { "type": "FontAwesomeIcon" },
+				"recycle": { "type": "FontAwesomeIcon" },
+				"refresh": { "type": "FontAwesomeIcon" },
+				"remove": { "type": "FontAwesomeIcon" },
+				"reorder": { "type": "FontAwesomeIcon" },
+				"reply": { "type": "FontAwesomeIcon" },
+				"reply_all": { "type": "FontAwesomeIcon" },
+				"retweet": { "type": "FontAwesomeIcon" },
+				"road": { "type": "FontAwesomeIcon" },
+				"rocket": { "type": "FontAwesomeIcon" },
+				"rss": { "type": "FontAwesomeIcon" },
+				"rss_square": { "type": "FontAwesomeIcon" },
+				"search": { "type": "FontAwesomeIcon" },
+				"search_minus": { "type": "FontAwesomeIcon" },
+				"search_plus": { "type": "FontAwesomeIcon" },
+				"send": { "type": "FontAwesomeIcon" },
+				"send_o": { "type": "FontAwesomeIcon" },
+				"share": { "type": "FontAwesomeIcon" },
+				"share_alt": { "type": "FontAwesomeIcon" },
+				"share_alt_square": { "type": "FontAwesomeIcon" },
+				"share_square": { "type": "FontAwesomeIcon" },
+				"share_square_o": { "type": "FontAwesomeIcon" },
+				"shield": { "type": "FontAwesomeIcon" },
+				"shopping_cart": { "type": "FontAwesomeIcon" },
+				"sign_in": { "type": "FontAwesomeIcon" },
+				"sign_out": { "type": "FontAwesomeIcon" },
+				"signal": { "type": "FontAwesomeIcon" },
+				"sitemap": { "type": "FontAwesomeIcon" },
+				"sliders": { "type": "FontAwesomeIcon" },
+				"smile_o": { "type": "FontAwesomeIcon" },
+				"soccer_ball_o": { "type": "FontAwesomeIcon" },
+				"sort": { "type": "FontAwesomeIcon" },
+				"sort_alpha_asc": { "type": "FontAwesomeIcon" },
+				"sort_alpha_desc": { "type": "FontAwesomeIcon" },
+				"sort_amount_asc": { "type": "FontAwesomeIcon" },
+				"sort_amount_desc": { "type": "FontAwesomeIcon" },
+				"sort_asc": { "type": "FontAwesomeIcon" },
+				"sort_desc": { "type": "FontAwesomeIcon" },
+				"sort_down": { "type": "FontAwesomeIcon" },
+				"sort_numeric_asc": { "type": "FontAwesomeIcon" },
+				"sort_numeric_desc": { "type": "FontAwesomeIcon" },
+				"sort_up": { "type": "FontAwesomeIcon" },
+				"space_shuttle": { "type": "FontAwesomeIcon" },
+				"spinner": { "type": "FontAwesomeIcon" },
+				"spoon": { "type": "FontAwesomeIcon" },
+				"square": { "type": "FontAwesomeIcon" },
+				"square_o": { "type": "FontAwesomeIcon" },
+				"star": { "type": "FontAwesomeIcon" },
+				"star_half": { "type": "FontAwesomeIcon" },
+				"star_half_empty": { "type": "FontAwesomeIcon" },
+				"star_half_full": { "type": "FontAwesomeIcon" },
+				"star_half_o": { "type": "FontAwesomeIcon" },
+				"star_o": { "type": "FontAwesomeIcon" },
+				"suitcase": { "type": "FontAwesomeIcon" },
+				"sun_o": { "type": "FontAwesomeIcon" },
+				"support": { "type": "FontAwesomeIcon" },
+				"tablet": { "type": "FontAwesomeIcon" },
+				"tachometer": { "type": "FontAwesomeIcon" },
+				"tag": { "type": "FontAwesomeIcon" },
+				"tags": { "type": "FontAwesomeIcon" },
+				"tasks": { "type": "FontAwesomeIcon" },
+				"taxi": { "type": "FontAwesomeIcon" },
+				"terminal": { "type": "FontAwesomeIcon" },
+				"thumb_tack": { "type": "FontAwesomeIcon" },
+				"thumbs_down": { "type": "FontAwesomeIcon" },
+				"thumbs_o_down": { "type": "FontAwesomeIcon" },
+				"thumbs_o_up": { "type": "FontAwesomeIcon" },
+				"thumbs_up": { "type": "FontAwesomeIcon" },
+				"ticket": { "type": "FontAwesomeIcon" },
+				"times": { "type": "FontAwesomeIcon" },
+				"times_circle": { "type": "FontAwesomeIcon" },
+				"times_circle_o": { "type": "FontAwesomeIcon" },
+				"tint": { "type": "FontAwesomeIcon" },
+				"toggle_down": { "type": "FontAwesomeIcon" },
+				"toggle_left": { "type": "FontAwesomeIcon" },
+				"toggle_off": { "type": "FontAwesomeIcon" },
+				"toggle_on": { "type": "FontAwesomeIcon" },
+				"toggle_right": { "type": "FontAwesomeIcon" },
+				"toggle_up": { "type": "FontAwesomeIcon" },
+				"trash": { "type": "FontAwesomeIcon" },
+				"trash_o": { "type": "FontAwesomeIcon" },
+				"tree": { "type": "FontAwesomeIcon" },
+				"trophy": { "type": "FontAwesomeIcon" },
+				"truck": { "type": "FontAwesomeIcon" },
+				"tty": { "type": "FontAwesomeIcon" },
+				"umbrella": { "type": "FontAwesomeIcon" },
+				"university": { "type": "FontAwesomeIcon" },
+				"unlock": { "type": "FontAwesomeIcon" },
+				"unlock_alt": { "type": "FontAwesomeIcon" },
+				"unsorted": { "type": "FontAwesomeIcon" },
+				"upload": { "type": "FontAwesomeIcon" },
+				"user": { "type": "FontAwesomeIcon" },
+				"users": { "type": "FontAwesomeIcon" },
+				"video_camera": { "type": "FontAwesomeIcon" },
+				"volume_down": { "type": "FontAwesomeIcon" },
+				"volume_off": { "type": "FontAwesomeIcon" },
+				"volume_up": { "type": "FontAwesomeIcon" },
+				"warning": { "type": "FontAwesomeIcon" },
+				"wheelchair": { "type": "FontAwesomeIcon" },
+				"wifi": { "type": "FontAwesomeIcon" },
+				"wrench": { "type": "FontAwesomeIcon" },
+				"file": { "type": "FontAwesomeIcon" },
+				"file_archive_o": { "type": "FontAwesomeIcon" },
+				"file_audio_o": { "type": "FontAwesomeIcon" },
+				"file_code_o": { "type": "FontAwesomeIcon" },
+				"file_excel_o": { "type": "FontAwesomeIcon" },
+				"file_image_o": { "type": "FontAwesomeIcon" },
+				"file_movie_o": { "type": "FontAwesomeIcon" },
+				"file_o": { "type": "FontAwesomeIcon" },
+				"file_pdf_o": { "type": "FontAwesomeIcon" },
+				"file_photo_o": { "type": "FontAwesomeIcon" },
+				"file_picture_o": { "type": "FontAwesomeIcon" },
+				"file_powerpoint_o": { "type": "FontAwesomeIcon" },
+				"file_sound_o": { "type": "FontAwesomeIcon" },
+				"file_text": { "type": "FontAwesomeIcon" },
+				"file_text_o": { "type": "FontAwesomeIcon" },
+				"file_video_o": { "type": "FontAwesomeIcon" },
+				"file_word_o": { "type": "FontAwesomeIcon" },
+				"file_zip_o": { "type": "FontAwesomeIcon" },
+				"circle_o_notch": { "type": "FontAwesomeIcon" },
+				"cog": { "type": "FontAwesomeIcon" },
+				"gear": { "type": "FontAwesomeIcon" },
+				"refresh": { "type": "FontAwesomeIcon" },
+				"spinner": { "type": "FontAwesomeIcon" },
+				"check_square": { "type": "FontAwesomeIcon" },
+				"check_square_o": { "type": "FontAwesomeIcon" },
+				"circle": { "type": "FontAwesomeIcon" },
+				"circle_o": { "type": "FontAwesomeIcon" },
+				"dot_circle_o": { "type": "FontAwesomeIcon" },
+				"minus_square": { "type": "FontAwesomeIcon" },
+				"minus_square_o": { "type": "FontAwesomeIcon" },
+				"plus_square": { "type": "FontAwesomeIcon" },
+				"plus_square_o": { "type": "FontAwesomeIcon" },
+				"square": { "type": "FontAwesomeIcon" },
+				"square_o": { "type": "FontAwesomeIcon" },
+				"cc_amex": { "type": "FontAwesomeIcon" },
+				"cc_discover": { "type": "FontAwesomeIcon" },
+				"cc_mastercard": { "type": "FontAwesomeIcon" },
+				"cc_paypal": { "type": "FontAwesomeIcon" },
+				"cc_stripe": { "type": "FontAwesomeIcon" },
+				"cc_visa": { "type": "FontAwesomeIcon" },
+				"credit_card": { "type": "FontAwesomeIcon" },
+				"google_wallet": { "type": "FontAwesomeIcon" },
+				"paypal": { "type": "FontAwesomeIcon" },
+				"area_chart": { "type": "FontAwesomeIcon" },
+				"bar_chart": { "type": "FontAwesomeIcon" },
+				"bar_chart_o": { "type": "FontAwesomeIcon" },
+				"line_chart": { "type": "FontAwesomeIcon" },
+				"pie_chart": { "type": "FontAwesomeIcon" },
+				"bitcoin": { "type": "FontAwesomeIcon" },
+				"btc": { "type": "FontAwesomeIcon" },
+				"cny": { "type": "FontAwesomeIcon" },
+				"dollar": { "type": "FontAwesomeIcon" },
+				"eur": { "type": "FontAwesomeIcon" },
+				"euro": { "type": "FontAwesomeIcon" },
+				"gbp": { "type": "FontAwesomeIcon" },
+				"ils": { "type": "FontAwesomeIcon" },
+				"inr": { "type": "FontAwesomeIcon" },
+				"jpy": { "type": "FontAwesomeIcon" },
+				"krw": { "type": "FontAwesomeIcon" },
+				"money": { "type": "FontAwesomeIcon" },
+				"rmb": { "type": "FontAwesomeIcon" },
+				"rouble": { "type": "FontAwesomeIcon" },
+				"rub": { "type": "FontAwesomeIcon" },
+				"ruble": { "type": "FontAwesomeIcon" },
+				"rupee": { "type": "FontAwesomeIcon" },
+				"shekel": { "type": "FontAwesomeIcon" },
+				"sheqel": { "type": "FontAwesomeIcon" },
+				"try": { "type": "FontAwesomeIcon" },
+				"turkish_lira": { "type": "FontAwesomeIcon" },
+				"usd": { "type": "FontAwesomeIcon" },
+				"won": { "type": "FontAwesomeIcon" },
+				"yen": { "type": "FontAwesomeIcon" },
+				"align_center": { "type": "FontAwesomeIcon" },
+				"align_justify": { "type": "FontAwesomeIcon" },
+				"align_left": { "type": "FontAwesomeIcon" },
+				"align_right": { "type": "FontAwesomeIcon" },
+				"bold": { "type": "FontAwesomeIcon" },
+				"chain": { "type": "FontAwesomeIcon" },
+				"chain_broken": { "type": "FontAwesomeIcon" },
+				"clipboard": { "type": "FontAwesomeIcon" },
+				"columns": { "type": "FontAwesomeIcon" },
+				"copy": { "type": "FontAwesomeIcon" },
+				"cut": { "type": "FontAwesomeIcon" },
+				"dedent": { "type": "FontAwesomeIcon" },
+				"eraser": { "type": "FontAwesomeIcon" },
+				"file": { "type": "FontAwesomeIcon" },
+				"file_o": { "type": "FontAwesomeIcon" },
+				"file_text": { "type": "FontAwesomeIcon" },
+				"file_text_o": { "type": "FontAwesomeIcon" },
+				"files_o": { "type": "FontAwesomeIcon" },
+				"floppy_o": { "type": "FontAwesomeIcon" },
+				"font": { "type": "FontAwesomeIcon" },
+				"header": { "type": "FontAwesomeIcon" },
+				"indent": { "type": "FontAwesomeIcon" },
+				"italic": { "type": "FontAwesomeIcon" },
+				"link": { "type": "FontAwesomeIcon" },
+				"list": { "type": "FontAwesomeIcon" },
+				"list_alt": { "type": "FontAwesomeIcon" },
+				"list_ol": { "type": "FontAwesomeIcon" },
+				"list_ul": { "type": "FontAwesomeIcon" },
+				"outdent": { "type": "FontAwesomeIcon" },
+				"paperclip": { "type": "FontAwesomeIcon" },
+				"paragraph": { "type": "FontAwesomeIcon" },
+				"paste": { "type": "FontAwesomeIcon" },
+				"repeat": { "type": "FontAwesomeIcon" },
+				"rotate_left": { "type": "FontAwesomeIcon" },
+				"rotate_right": { "type": "FontAwesomeIcon" },
+				"save": { "type": "FontAwesomeIcon" },
+				"scissors": { "type": "FontAwesomeIcon" },
+				"strikethrough": { "type": "FontAwesomeIcon" },
+				"subscript": { "type": "FontAwesomeIcon" },
+				"superscript": { "type": "FontAwesomeIcon" },
+				"table": { "type": "FontAwesomeIcon" },
+				"text_height": { "type": "FontAwesomeIcon" },
+				"text_width": { "type": "FontAwesomeIcon" },
+				"th": { "type": "FontAwesomeIcon" },
+				"th_large": { "type": "FontAwesomeIcon" },
+				"th_list": { "type": "FontAwesomeIcon" },
+				"underline": { "type": "FontAwesomeIcon" },
+				"undo": { "type": "FontAwesomeIcon" },
+				"unlink": { "type": "FontAwesomeIcon" },
+				"angle_double_down": { "type": "FontAwesomeIcon" },
+				"angle_double_left": { "type": "FontAwesomeIcon" },
+				"angle_double_right": { "type": "FontAwesomeIcon" },
+				"angle_double_up": { "type": "FontAwesomeIcon" },
+				"angle_down": { "type": "FontAwesomeIcon" },
+				"angle_left": { "type": "FontAwesomeIcon" },
+				"angle_right": { "type": "FontAwesomeIcon" },
+				"angle_up": { "type": "FontAwesomeIcon" },
+				"arrow_circle_down": { "type": "FontAwesomeIcon" },
+				"arrow_circle_left": { "type": "FontAwesomeIcon" },
+				"arrow_circle_o_down": { "type": "FontAwesomeIcon" },
+				"arrow_circle_o_left": { "type": "FontAwesomeIcon" },
+				"arrow_circle_o_right": { "type": "FontAwesomeIcon" },
+				"arrow_circle_o_up": { "type": "FontAwesomeIcon" },
+				"arrow_circle_right": { "type": "FontAwesomeIcon" },
+				"arrow_circle_up": { "type": "FontAwesomeIcon" },
+				"arrow_down": { "type": "FontAwesomeIcon" },
+				"arrow_left": { "type": "FontAwesomeIcon" },
+				"arrow_right": { "type": "FontAwesomeIcon" },
+				"arrow_up": { "type": "FontAwesomeIcon" },
+				"arrows": { "type": "FontAwesomeIcon" },
+				"arrows_alt": { "type": "FontAwesomeIcon" },
+				"arrows_h": { "type": "FontAwesomeIcon" },
+				"arrows_v": { "type": "FontAwesomeIcon" },
+				"caret_down": { "type": "FontAwesomeIcon" },
+				"caret_left": { "type": "FontAwesomeIcon" },
+				"caret_right": { "type": "FontAwesomeIcon" },
+				"caret_square_o_down": { "type": "FontAwesomeIcon" },
+				"caret_square_o_left": { "type": "FontAwesomeIcon" },
+				"caret_square_o_right": { "type": "FontAwesomeIcon" },
+				"caret_square_o_up": { "type": "FontAwesomeIcon" },
+				"caret_up": { "type": "FontAwesomeIcon" },
+				"chevron_circle_down": { "type": "FontAwesomeIcon" },
+				"chevron_circle_left": { "type": "FontAwesomeIcon" },
+				"chevron_circle_right": { "type": "FontAwesomeIcon" },
+				"chevron_circle_up": { "type": "FontAwesomeIcon" },
+				"chevron_down": { "type": "FontAwesomeIcon" },
+				"chevron_left": { "type": "FontAwesomeIcon" },
+				"chevron_right": { "type": "FontAwesomeIcon" },
+				"chevron_up": { "type": "FontAwesomeIcon" },
+				"hand_o_down": { "type": "FontAwesomeIcon" },
+				"hand_o_left": { "type": "FontAwesomeIcon" },
+				"hand_o_right": { "type": "FontAwesomeIcon" },
+				"hand_o_up": { "type": "FontAwesomeIcon" },
+				"long_arrow_down": { "type": "FontAwesomeIcon" },
+				"long_arrow_left": { "type": "FontAwesomeIcon" },
+				"long_arrow_right": { "type": "FontAwesomeIcon" },
+				"long_arrow_up": { "type": "FontAwesomeIcon" },
+				"toggle_down": { "type": "FontAwesomeIcon" },
+				"toggle_left": { "type": "FontAwesomeIcon" },
+				"toggle_right": { "type": "FontAwesomeIcon" },
+				"toggle_up": { "type": "FontAwesomeIcon" },
+				"arrows_alt": { "type": "FontAwesomeIcon" },
+				"backward": { "type": "FontAwesomeIcon" },
+				"compress": { "type": "FontAwesomeIcon" },
+				"eject": { "type": "FontAwesomeIcon" },
+				"expand": { "type": "FontAwesomeIcon" },
+				"fast_backward": { "type": "FontAwesomeIcon" },
+				"fast_forward": { "type": "FontAwesomeIcon" },
+				"forward": { "type": "FontAwesomeIcon" },
+				"pause": { "type": "FontAwesomeIcon" },
+				"play": { "type": "FontAwesomeIcon" },
+				"play_circle": { "type": "FontAwesomeIcon" },
+				"play_circle_o": { "type": "FontAwesomeIcon" },
+				"step_backward": { "type": "FontAwesomeIcon" },
+				"step_forward": { "type": "FontAwesomeIcon" },
+				"stop": { "type": "FontAwesomeIcon" },
+				"youtube_play": { "type": "FontAwesomeIcon" }
+			}
+		},
+		"FA": {	"alias": "FontAwesome" },
+		"Vega": {
+			"class": "WidgetVega",
+			"parent": "GenericWidget",
+			"PROPERTIES": {
+				"width": {
+					"type": "int",
+					"desc": "The total width, in pixels, of the data rectangle"
+				},
+				"height": {
+					"type": "int",
+					"desc": "The total height, in pixels, of the data rectangl"
+				},
+				"axes": {
+					"type": "array",
+					"desc": "Axis definitions"
+				},
+				"data": {
+					"type": "array",
+					"desc": "Definitions of data to visualize"
+				},
+				"legends": {
+					"type": "array",
+					"desc": "Legend definitions"
+				},
+				"marks": {
+					"type": "array",
+					"desc": "Graphical mark definitions"
+				},
+				"scales": {
+					"type": "array",
+					"desc": "Scale transform definitions"
+				},
+				"viewport": {
+					"type": "array",
+					"desc": "The width and height of the on-screen viewport, in pixels"
+				},
+				"padding": {
+					"type": "not object",
+					"desc": "The internal padding, in pixels, from the edge of the visualization canvas to the data rectangle"
+				},
+				"name": {
+					"type": "string",
+					"desc": "A unique name for the visualization specification"
+				}
+			}
+		}
+	},
+	"functions": {
+		"fontawesome": {
+			"class": "WidgetFontAwesomeIcon",
+			"parameters": [
+				{ "type": "string", "name": "iconName" },
+				{ "type": "array", "name": "properties", "default": "null" }
+			],
+			"return": "FontAwesomeIcon",
+			"desc": "Returns new FontAwesomeIcon object"
+		},
+		"fa": { "alias": "fontawesome" },
+		"slick": {
+			"class": "WidgetSlick",
+			"parameters": [
+				{ "type": "mixed", "name": "slides", "default": "null" },
+				{ "type": "array", "name": "properties", "default": "null" }
+			],
+			"return": "Slick",
+			"desc": "Returns new Slick object"
+		},
+		"vega": {
+			"class": "WidgetVega",
+			"parameters": [
+				{ "type": "array", "name": "properties", "default": "null" }
+			],
+			"return": "Vega",
+			"desc": "Returns new Vega object"
+		}
+	},
+	"constants": {
+		"PHPTAGS_WIDGETS_VERSION" : {
+			"desc": "The current version of the PhpTags Widget extension as a string",
+			"type": "string",
+			"link": "https://www.mediawiki.org/wiki/Extension:PhpTags_Widgets"
+		}
+	}
+}

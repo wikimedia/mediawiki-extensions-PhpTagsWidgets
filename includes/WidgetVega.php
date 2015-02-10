@@ -9,6 +9,10 @@ namespace PhpTagsObjects;
  */
 class WidgetVega extends \PhpTags\GenericWidget {
 
+	public static function f_vega() {
+		return \PhpTags\Hooks::createObject( func_get_args(), 'Vega' );
+	}
+
 	public function getString() {
 		global $wgPhpTagsWidgetVegaDomainWhiteList;
 		static $domainWhiteListWasAdded = false;
@@ -19,43 +23,6 @@ class WidgetVega extends \PhpTags\GenericWidget {
 		}
 		$this->addModules( 'ext.PhpTagsWidgets.vega', 'extpwVega' );
 		$this->addData( array( $this->value[self::PROP] ) );
-	}
-
-	private function checkProperty( $property, &$value ) {
-		$arguments = array( &$value );
-		$expects = false;
-
-		switch ( $property ) {
-			case 'width':
-			case 'height':
-				$expects = \PhpTags\Hooks::TYPE_INT;
-				break;
-			case 'axes':
-			case 'data':
-			case 'legends':
-			case 'marks':
-			case 'scales':
-			case 'viewport':
-				$expects = \PhpTags\Hooks::TYPE_ARRAY;
-				break;
-			case 'padding':
-				$expects = \PhpTags\Hooks::TYPE_NOT_OBJECT;
-				break;
-			case 'name':
-				$expects = \PhpTags\Hooks::TYPE_STRING;
-				break;
-			default:
-				return true;
-		}
-
-		$check = parent::checkArguments( $this->name, $property, $arguments, array($expects) );
-		if ( $check === true ) {
-			return true;
-		}
-		if ( $check instanceof \PhpTags\PhpTagsException && $check->getCode() === \PhpTags\PhpTagsException::WARNING_EXPECTS_PARAMETER ) {
-			\PhpTags\Runtime::$transit[PHPTAGS_TRANSIT_EXCEPTION][] = new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_EXPECTS_PROPERTY, $check->params );
-		}
-		return false;
 	}
 
 	public function __call( $name, $arguments ) {
@@ -78,7 +45,7 @@ class WidgetVega extends \PhpTags\GenericWidget {
 				} elseif ( $callType === 'b' ) { // set property
 					if ( $arguments[0] === null ) {
 						unset( $this->value[self::PROP][$property] );
-					} elseif ( $this->checkProperty( $property, $arguments[0] ) ) {
+					} else {
 						$this->value[self::PROP][$property] = $arguments[0];
 					}
 					return;
