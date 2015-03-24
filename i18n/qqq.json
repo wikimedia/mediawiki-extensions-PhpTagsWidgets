@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"pastakhov"
+			"pastakhov",
+			"Umherirrender"
 		]
 	},
-	"phptagswidgets-desc": "{{desc|name=PhpTags_Widgets|url=http://www.mediawiki.org/wiki/Extension:PhpTags_Widgets}}"
+	"phptagswidgets-desc": "{{desc|name=PhpTags_Widgets|url=https://www.mediawiki.org/wiki/Extension:PhpTags_Widgets}}"
 }
