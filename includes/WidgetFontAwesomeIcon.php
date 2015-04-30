@@ -41,7 +41,7 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 					if ( isset( self::$options[$prop] ) ) {
 						$this->value[self::PROP][ self::$options[$prop] ] = "fa-$prop";
 					} else {
-						\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_PROPERTY, array($this->name, $prop) ) );
+						\PhpTags\Runtime::pushException( new \PhpTags\PhpTagsException( \PhpTags\PhpTagsException::NOTICE_UNDEFINED_PROPERTY ) );
 					}
 				} else {
 					$handler = "b_$key";
@@ -63,7 +63,7 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 			if ( isset( self::$options[$prop] ) ) {
 				$value = $this->value;
 				$value[self::PROP][ self::$options[$prop] ] = "fa-$prop";
-				return new self( $this->name, $value );
+				return new self( $this->objectName, $this->objectKey, $value );
 			}
 		}
 
