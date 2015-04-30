@@ -12,7 +12,7 @@
 			},
 			"PROPERTIES": {
 				"class": {
-					"type": "not object",
+					"type": "nonobject",
 					"get": "array",
 					"desc": "Sets HTML attribute 'class' for object"
 				},
@@ -819,7 +819,7 @@
 					"desc": "The width and height of the on-screen viewport, in pixels"
 				},
 				"padding": {
-					"type": "not object",
+					"type": "nonobject",
 					"desc": "The internal padding, in pixels, from the edge of the visualization canvas to the data rectangle"
 				},
 				"name": {

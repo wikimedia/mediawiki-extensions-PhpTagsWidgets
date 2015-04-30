@@ -19,7 +19,7 @@ class GenericWidget extends GenericObject {
 	const GENERAL_ATTRIBS = 2;
 	const PRIVATE_PROP = 3;
 
-	function __construct( $name, $value = null ) {
+	function __construct( $objectName, $objectKey, $value = null ) {
 		if ( self::$classPrefix === null ) {
 			self::$classPrefix = 'pw-' . base_convert( mt_rand(), 10, 36 ) . '-';
 		}
@@ -28,7 +28,7 @@ class GenericWidget extends GenericObject {
 		if ( $value === null ) {
 			$value = array( array(), array(), array(), array() );
 		}
-		parent::__construct( $name, $value );
+		parent::__construct( $objectName, $objectKey, $value );
 	}
 
 	function m___construct( $properties = null ) {
