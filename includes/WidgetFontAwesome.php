@@ -14,10 +14,9 @@ class WidgetFontAwesome extends \PhpTags\GenericWidget {
 
 		if ( $callType == 'c' ) {
 			$prop = str_replace( '_', '-', $tmp );
-			$icon = \PhpTags\Hooks::createObject( array( $prop ), 'FontAwesomeIcon', false );
-			if ( $icon !== false ) {
-				return $icon;
-			}
+			try {
+				return \PhpTags\Hooks::createObject( array( $prop ), 'FontAwesomeIcon' );
+			} catch ( \Exception $exc ) {}
 		}
 		return parent::__callStatic( $name, $arguments );
 	}

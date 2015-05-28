@@ -15,7 +15,7 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-const PHPTAGS_WIDGETS_VERSION = '1.4.1';
+const PHPTAGS_WIDGETS_VERSION = '1.4.2';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -37,11 +37,11 @@ $wgHooks['ParserFirstCallInit'][] = function() {
 	if ( !defined( 'PHPTAGS_VERSION' ) ) {
 	throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Widgets extension." );
 	}
-	$needVersion = '5.0.0';
+	$needVersion = '5.1.2';
 	if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
 		throw new MWException( "\n\nThis version of the PhpTags Widgets extension requires the PhpTags extension $needVersion or above.\n You have " . PHPTAGS_VERSION . ". Please update it." );
 	}
-	if ( PHPTAGS_HOOK_RELEASE != 7 ) {
+	if ( PHPTAGS_HOOK_RELEASE != 8 ) {
 		throw new MWException( "\n\nThis version of the PhpTags Widgets extension is outdated and not compatible with current version of the PhpTags extension.\n Please update it." );
 	}
 	return true;

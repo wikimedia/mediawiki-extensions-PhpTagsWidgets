@@ -45,8 +45,8 @@ class GenericWidget extends GenericObject {
 	public function getString() {}
 
 	public function getCssClassName() {
-		if ( ! isset( \PhpTags::$globalVariablesScript['Widgets']['prefix'] ) ) {
-			\PhpTags::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
+		if ( ! isset( Renderer::$globalVariablesScript['Widgets']['prefix'] ) ) {
+			Renderer::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
 		}
 		return self::$classPrefix . $this->classID;
 	}
@@ -67,13 +67,13 @@ class GenericWidget extends GenericObject {
 	 * @param array $values
 	 */
 	protected function addData( $values ) {
-		\PhpTags::$globalVariablesScript['Widgets']['data'][(string)$this->classID] = $values;
+		Renderer::$globalVariablesScript['Widgets']['data'][(string)$this->classID] = $values;
 	}
 
 	protected function addModules( $modules, $command = false ) {
 		static $output = false;
 		if ( $output === false ) {
-			$output = \PhpTags\Runtime::$parser->getOutput();
+			$output = Renderer::getParser()->getOutput();
 		}
 
 		$arrayModules = (array)$modules;
@@ -91,11 +91,11 @@ class GenericWidget extends GenericObject {
 
 		if ( $command ) {
 			$md = md5( serialize( $arrayModules ) );
-			if ( false === isset( \PhpTags::$globalVariablesScript['Widgets']['whenReady'][$md] ) ) {
-				\PhpTags::$globalVariablesScript['Widgets']['whenReady'][$md]['modules'] = $arrayModules;
+			if ( false === isset( Renderer::$globalVariablesScript['Widgets']['whenReady'][$md] ) ) {
+				Renderer::$globalVariablesScript['Widgets']['whenReady'][$md]['modules'] = $arrayModules;
 				$this->addModules( 'ext.PhpTagsWidgets.onReady', false );
 			}
-			\PhpTags::$globalVariablesScript['Widgets']['whenReady'][$md]['fn'][ (string)$this->classID ] = $command;
+			Renderer::$globalVariablesScript['Widgets']['whenReady'][$md]['fn'][ (string)$this->classID ] = $command;
 		}
 	}
 
