@@ -3,7 +3,7 @@
  * Main entry point for the PhpTags Widgets extension.
  *
  * @link https://www.mediawiki.org/wiki/Extension:PhpTags_Widgets Documentation
- * @file PhpTagsFunctions.php
+ * @file PhpTagsWidgets.php
  * @defgroup PhpTags
  * @ingroup Extensions
  * @author Pavel Astakhov <pastakhov@yandex.ru>
@@ -15,7 +15,7 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-const PHPTAGS_WIDGETS_VERSION = '1.4.2';
+const PHPTAGS_WIDGETS_VERSION = '1.4.3';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -30,49 +30,22 @@ $wgExtensionCredits['phptags'][] = array(
 // Allow translations for this extension
 $wgMessagesDirs['PhpTagsWidgets'] = __DIR__ . '/i18n';
 
-/**
- * @codeCoverageIgnore
- */
-$wgHooks['ParserFirstCallInit'][] = function() {
-	if ( !defined( 'PHPTAGS_VERSION' ) ) {
-	throw new MWException( "\n\nYou need to have the PhpTags extension installed in order to use the PhpTags Widgets extension." );
-	}
-	$needVersion = '5.1.2';
-	if ( version_compare( PHPTAGS_VERSION, $needVersion, '<' ) ) {
-		throw new MWException( "\n\nThis version of the PhpTags Widgets extension requires the PhpTags extension $needVersion or above.\n You have " . PHPTAGS_VERSION . ". Please update it." );
-	}
-	if ( PHPTAGS_HOOK_RELEASE != 8 ) {
-		throw new MWException( "\n\nThis version of the PhpTags Widgets extension is outdated and not compatible with current version of the PhpTags extension.\n Please update it." );
-	}
-	return true;
-};
+//
+$wgHooks['ParserFirstCallInit'][] = 'PhpTagsWidgetsHooks::onParserFirstCallInit';
+$wgHooks['PhpTagsRuntimeFirstInit'][] = 'PhpTagsWidgetsHooks::onPhpTagsRuntimeFirstInit';
+$wgHooks['UnitTestsList'][] = 'PhpTagsWidgetsHooks::onUnitTestsList';
 
-/**
- * @codeCoverageIgnore
- */
-$wgHooks['PhpTagsRuntimeFirstInit'][] = function() {
-	\PhpTags\Hooks::addJsonFile( __DIR__ . '/PhpTagsWidgets.json', PHPTAGS_WIDGETS_VERSION );
-};
+// add parser tests
+$wgParserTestFiles[] = __DIR__ . '/tests/parser/PhpTagsWidgetsTests.txt';
 
 // Preparing classes for autoloading
+$wgAutoloadClasses['PhpTagsWidgetsHooks'] = __DIR__ . '/PhpTagsWidgets.hooks.php';
 $wgAutoloadClasses['PhpTags\\GenericWidget'] = __DIR__ . '/includes/GenericWidget.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetSlick'] = __DIR__ . '/includes/WidgetSlick.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesome'] = __DIR__ . '/includes/WidgetFontAwesome.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesomeIcon'] = __DIR__ . '/includes/WidgetFontAwesomeIcon.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetVega'] = __DIR__ . '/includes/WidgetVega.php';
 
-/**
- * Add files to phpunit test
- * @codeCoverageIgnore
- */
-$wgHooks['UnitTestsList'][] = function ( &$files ) {
-	$testDir = __DIR__ . '/tests/phpunit';
-	$files = array_merge( $files, glob( "$testDir/*Test.php" ) );
-	\PhpTags\GenericWidget::$classPrefix = 'UnitTest';
-	return true;
-};
-
-$wgParserTestFiles[] = __DIR__ . '/tests/parser/PhpTagsWidgetsTests.txt';
 
 $tpl = array(
 	'group' => 'PhpTagsWidgets',
