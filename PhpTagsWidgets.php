@@ -15,7 +15,7 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-const PHPTAGS_WIDGETS_VERSION = '1.4.4';
+const PHPTAGS_WIDGETS_VERSION = '1.4.5';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -60,7 +60,10 @@ $wgResourceModules['ext.PhpTagsWidgets.onReady'] = array(
 
 $wgResourceModules['ext.PhpTagsWidgets.slick'] = array(
 	'scripts' => 'libs/slick/slick.js',
-	'styles' => 'libs/slick/slick.css',
+	'styles' => array(
+		'libs/slick/slick.css',
+		'libs/slick/slick-theme.css',
+	),
 	//'dependencies' => array( 'jquery' ),
 ) + $tpl;
 
