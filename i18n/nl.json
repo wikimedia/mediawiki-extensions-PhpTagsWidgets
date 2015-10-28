@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Esketti"
+			"Esketti",
+			"Rcdeboer"
 		]
 	},
-	"phptagswidgets-desc": "Bevat een verzameling van widgets voor PhpTags uitbreiding"
+	"phptagswidgets-desc": "Bevat een verzameling widgets voor de PhpTags-uitbreiding"
 }
