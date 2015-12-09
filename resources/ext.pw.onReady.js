@@ -1,12 +1,14 @@
 /* global window, mw, $ */
 if(window.mw){
-	var $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' );
-	var $prefix = $phptagsWidgets.prefix;
-	var $whenReady = $phptagsWidgets.whenReady;
-	var mwPhpTagsWidgetsDoIt = function ( $fn ) {
+	var $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' ),
+		$prefix = $phptagsWidgets.prefix,
+		$whenReady = $phptagsWidgets.whenReady,
+		$data,
+		mwPhpTagsWidgetsDoIt = function ( $fn ) {
 		for ( var $k in $fn ) {
 			if ( $fn.hasOwnProperty($k) ) {
-				$.fn[ $fn[$k] ].apply( $( '.' + $prefix + $k ) , $phptagsWidgets.data[$k] );
+				$data = ( $phptagsWidgets.data && $phptagsWidgets.data[$k] ) || {};
+				$.fn[ $fn[$k] ].apply( $( '.' + $prefix + $k ) , $data );
 			}
 		}
 	};

@@ -4,8 +4,8 @@ namespace PhpTagsObjects;
 /**
  * Description of WidgetsSlick
  * @see http://kenwheeler.github.io/slick/
- *
- * @author pastakhov
+ * @author Pavel Astakhov <pastakhov@yandex.ru>
+ * @licence GNU General Public Licence 2.0 or later
  */
 class WidgetSlick extends \PhpTags\GenericWidget {
 

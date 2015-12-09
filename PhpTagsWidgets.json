@@ -34,6 +34,21 @@
 				}
 			}
 		},
+		"Link": {
+			"class": "WidgetLink",
+			"parent": "GenericWidget",
+			"METHODS": {
+				"__construct" : {
+					"parameters": [
+						{ "type": "mixed", "name": "title", "default": "null" },
+						{ "type": "string", "name": "text", "default": "null" },
+						{ "type": "array", "name": "properties", "default": "null" }
+					],
+					"return": "Link",
+					"desc": "Returns new Link object"
+				}
+			}
+		},
 		"Slick": {
 			"class": "WidgetSlick",
 			"parent": "GenericWidget",
