@@ -15,7 +15,7 @@ if ( !defined('MEDIAWIKI') ) {
 	die( 'This file is an extension to MediaWiki and thus not a valid entry point.' );
 }
 
-const PHPTAGS_WIDGETS_VERSION = '1.4.5';
+const PHPTAGS_WIDGETS_VERSION = '1.5.0';
 
 // Register this extension on Special:Version
 $wgExtensionCredits['phptags'][] = array(
@@ -45,6 +45,7 @@ $wgAutoloadClasses['PhpTagsObjects\\WidgetSlick'] = __DIR__ . '/includes/WidgetS
 $wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesome'] = __DIR__ . '/includes/WidgetFontAwesome.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetFontAwesomeIcon'] = __DIR__ . '/includes/WidgetFontAwesomeIcon.php';
 $wgAutoloadClasses['PhpTagsObjects\\WidgetVega'] = __DIR__ . '/includes/WidgetVega.php';
+$wgAutoloadClasses['PhpTagsObjects\\WidgetLink'] = __DIR__ . '/includes/WidgetLink.php';
 
 
 $tpl = array(

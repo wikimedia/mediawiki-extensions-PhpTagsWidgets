@@ -4,7 +4,8 @@ namespace PhpTags;
 /**
  * Description of GenericWidget
  *
- * @author pastakhov
+ * @author Pavel Astakhov <pastakhov@yandex.ru>
+ * @licence GNU General Public Licence 2.0 or later
  */
 class GenericWidget extends GenericObject {
 
