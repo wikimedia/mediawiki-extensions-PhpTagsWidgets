@@ -28,7 +28,7 @@ class WidgetLink extends \PhpTags\GenericWidget {
 		}
 
 		if ( $title ) {
-			$this->value[self::GENERAL_ATTRIBS]['href'] = $title->getInternalURL();
+			$this->value[self::GENERAL_ATTRIBS]['href'] = $title->getLinkURL();
 		} else {
 			$this->value[self::GENERAL_ATTRIBS]['href'] = '#';
 		}
@@ -49,6 +49,5 @@ class WidgetLink extends \PhpTags\GenericWidget {
 		$html = parent::toString();
 		return \PhpTags\Renderer::insertStripItem( $html );
 	}
-
 
 }

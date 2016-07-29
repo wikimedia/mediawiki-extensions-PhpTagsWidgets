@@ -111,6 +111,7 @@ FontAwesomeIcon camera-retro lg 3x property
 <phptag>
 $i = new FontAwesomeIcon( 'camera-retro' );
 echo $i->LG->_3x;
+</phptag>
 !! result
 <p><i class="fa fa-camera-retro fa-3x"></i>
 </p>

@@ -1061,6 +1061,7 @@
 	"constants": {
 		"PHPTAGS_WIDGETS_VERSION" : {
 			"desc": "The current version of the PhpTags Widget extension as a string",
+			"class": "PhpTagsWidgetsConstants",
 			"type": "string",
 			"link": "https://www.mediawiki.org/wiki/Extension:PhpTags_Widgets"
 		}
