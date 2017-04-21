@@ -1,2 +1,5 @@
+node_modules
+vendor
+
 # upstream libs
-resources/libs/
+resources/libs/**
