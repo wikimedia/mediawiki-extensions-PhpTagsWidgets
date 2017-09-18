@@ -98,7 +98,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 					} else {
 						$this->value[self::PROP][$property] = $arguments[0];
 					}
-					return;
+					return $this;
 				}
 				break;
 		}
@@ -147,7 +147,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 	 * @return \PhpTagsObjects\WidgetSlick
 	 */
 	public function b_asNavFor( $value ) {
-		$oldValue = isset($this->value[self::PRIVATE_PROP]['asNavFor']) ? $this->value[self::PRIVATE_PROP]['asNavFor'] : null;
+		$oldValue = isset( $this->value[self::PRIVATE_PROP]['asNavFor'] ) ? $this->value[self::PRIVATE_PROP]['asNavFor'] : null;
 		if ( $oldValue === $value ) {
 			return;
 		}

@@ -11,6 +11,10 @@
 				}
 			},
 			"PROPERTIES": {
+				"backgroundImage": {
+					"type": "mixed",
+					"desc": "Set a background-image for the element"
+				},
 				"class": {
 					"type": "nonobject",
 					"get": "array",
@@ -31,6 +35,76 @@
 				"title": {
 					"type": "string",
 					"desc": "Sets HTML attribute 'title' for object"
+				}
+			}
+		},
+		"Element": {
+			"class": "WidgetElement",
+			"parent": "GenericWidget",
+			"METHODS": {
+				"__construct" : {
+					"parameters": [
+						{ "type": "string", "name": "element", "default": "span" },
+						{ "type": "string", "name": "content", "default": "null" },
+						{ "type": "array", "name": "properties", "default": "null" }
+					],
+					"return": "Element",
+					"desc": "Returns new Element object"
+				}
+			}
+		},
+		"Image": {
+			"class": "WidgetImage",
+			"parent": "GenericWidget",
+			"METHODS": {
+				"__construct" : {
+					"parameters": [
+						{ "type": "mixed", "name": "file", "default": "null" },
+						{ "type": "array", "name": "properties", "default": "null" }
+					],
+					"return": "Image",
+					"desc": "Returns new Image object"
+				}
+			},
+			"PROPERTIES": {
+				"file": {
+					"type": "string",
+					"desc": "Specifies the file of an image"
+				},
+				"alt": {
+					"type": "string",
+					"desc": "Specifies an alternate text for an image"
+				},
+				"height": {
+					"type": "string",
+					"desc": "Specifies the height of an image attribute"
+				},
+				"width": {
+					"type": "string",
+					"desc": "Specifies the width of an image attribute"
+				},
+				"imageHeight": {
+					"type": "int",
+					"desc": "Specifies the physical height of an image in px"
+				},
+				"imageWidth": {
+					"type": "int",
+					"desc": "Specifies the physical width of an image in px"
+				},
+				"srcWidth": {
+					"type": "int",
+					"desc": "Return the width of the image",
+					"readonly": 1
+				},
+				"srcHeight": {
+					"type": "int",
+					"desc": "Return the height of the image",
+					"readonly": 1
+				},
+				"url": {
+					"type": "string",
+					"desc": "Return the url of the image",
+					"readonly": 1
 				}
 			}
 		},

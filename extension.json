@@ -1,6 +1,6 @@
 {
 	"name": "PhpTags Widgets",
-	"version": "1.5.2",
+	"version": "2.0.0",
 	"author": "[https://www.mediawiki.org/wiki/User:Pastakhov Pavel Astakhov]",
 	"url": "https://www.mediawiki.org/wiki/Extension:PhpTags_Widgets",
 	"descriptionmsg": "phptagswidgets-desc",
@@ -17,6 +17,8 @@
 		"PhpTagsObjects\\WidgetSlick": "includes/WidgetSlick.php",
 		"PhpTagsObjects\\WidgetFontAwesome": "includes/WidgetFontAwesome.php",
 		"PhpTagsObjects\\WidgetFontAwesomeIcon": "includes/WidgetFontAwesomeIcon.php",
+		"PhpTagsObjects\\WidgetElement": "includes/WidgetElement.php",
+		"PhpTagsObjects\\WidgetImage": "includes/WidgetImage.php",
 		"PhpTagsObjects\\WidgetVega": "includes/WidgetVega.php",
 		"PhpTagsObjects\\WidgetLink": "includes/WidgetLink.php"
 	},

@@ -29,25 +29,22 @@ class WidgetLink extends \PhpTags\GenericWidget {
 
 		if ( $title ) {
 			$this->value[self::GENERAL_ATTRIBS]['href'] = $title->getLinkURL();
+			if ( !$text ) {
+				$text = $title->getText();
+			}
 		} else {
 			$this->value[self::GENERAL_ATTRIBS]['href'] = '#';
 		}
 
-		$this->value[self::DATA]['title'] = $title;
+//		$this->value[self::DATA]['title'] = $title;
 		$this->value[self::DATA] = $text;
 		return parent::m___construct( $properties );
 	}
 
 	public function getString() {
-		$parser = \PhpTags\Renderer::getParser();
-		$frame = \PhpTags\Renderer::getFrame();
-
-		return $parser->recursiveTagParse( $this->value[self::DATA], $frame );
+		return $this->value[self::DATA];
 	}
 
-	public function toString() {
-		$html = parent::toString();
-		return \PhpTags\Renderer::insertStripItem( $html );
-	}
+	public function getCssClassName() {}
 
 }

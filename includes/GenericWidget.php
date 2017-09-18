@@ -15,10 +15,11 @@ class GenericWidget extends GenericObject {
 	protected $classID;
 	protected $element = 'div';
 
-	const PROP = 0;
-	const DATA = 1;
-	const GENERAL_ATTRIBS = 2;
-	const PRIVATE_PROP = 3;
+	const GENERAL_ATTRIBS = 0; // Must be safe (sanitized before set) for usage in HTML!!!
+	const GENERAL_PROP = 1;
+	const PROP = 2; // For children
+	const PRIVATE_PROP = 3; // For children
+	const DATA = 4; // For children
 
 	function __construct( $objectName, $objectKey, $value = null ) {
 		if ( self::$classPrefix === null ) {
@@ -26,9 +27,20 @@ class GenericWidget extends GenericObject {
 		}
 		$this->classID = self::$classN++;
 
-		if ( $value === null ) {
-			$value = array( array(), array(), array(), array() );
+		$initValue = [
+			self::GENERAL_ATTRIBS => [],
+			self::GENERAL_PROP => [],
+			self::PROP => [],
+			self::PRIVATE_PROP => [],
+			self::DATA => [],
+		];
+
+		if ( is_array( $value ) ) {
+			$value = $value + $initValue;
+		} else {
+			$value = $initValue;
 		}
+
 		parent::__construct( $objectName, $objectKey, $value );
 	}
 
@@ -46,17 +58,51 @@ class GenericWidget extends GenericObject {
 	public function getString() {}
 
 	public function getCssClassName() {
-		if ( ! isset( Renderer::$globalVariablesScript['Widgets']['prefix'] ) ) {
+		if ( self::$classPrefix !== 'UnitTest' && empty( Renderer::$globalVariablesScript['Widgets']['prefix'] ) ) { // Ignore in UnitTests
 			Renderer::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
 		}
 		return self::$classPrefix . $this->classID;
 	}
 
-	public function toString() {
+	/**
+	 *
+	 * @return array
+	 */
+	public function getAttribs() {
 		$attribs = $this->value[self::GENERAL_ATTRIBS];
+		$props = $this->value[self::GENERAL_PROP];
+
 		$class = $this->getCssClassName();
-		$attribs['class'] = isset( $attribs['class'] ) ? "$class {$attribs['class']}" : $class;
-		return \Html::rawElement( $this->element, $attribs, $this->getString() );
+		if ( $class ) {
+			self::addToAttrib( $attribs, 'class', $class );
+		}
+
+		if ( isset( $props['backgroundImage'] ) ) {
+			self::addToAttrib( $attribs, 'style', "background-image: {$props['backgroundImage']};" );
+		}
+		return $attribs;
+	}
+
+	protected static function addToAttrib( &$attribs, $index, $string ) {
+		if ( isset( $attribs[$index] ) ) {
+			$attribs[$index] = $string . ' ' . $attribs[$index];
+		} else {
+			$attribs[$index] = $string;
+		}
+	}
+
+	public function toString() {
+		$string = $this->getString();
+		if ( $string ) {
+			$parser = \PhpTags\Renderer::getParser();
+			$frame = \PhpTags\Renderer::getFrame();
+			$content = $parser->recursiveTagParse( $string, $frame );
+		} else {
+			$content = '';
+		}
+
+		$element = \Html::rawElement( $this->element, $this->getAttribs(), $content );
+		return \PhpTags\Renderer::insertStripItem( $element );
 	}
 
 	public function __toString() {
@@ -103,7 +149,6 @@ class GenericWidget extends GenericObject {
 	public function __call( $name, $arguments ) {
 		list ( $callType, $tmp ) = explode( '_', $name, 2 );
 		$subname = strtolower( $tmp );
-		$property = $subname;
 
 		switch ( $subname ) {
 			case 'class':
@@ -112,31 +157,76 @@ class GenericWidget extends GenericObject {
 			case 'style':
 			case 'title':
 				if ( $callType === 'p' ) { // get property
-					return isset( $this->value[self::GENERAL_ATTRIBS][$property] ) ? $this->value[self::GENERAL_ATTRIBS][$property] : null;
+					return $this->getTagAttribute( $subname );
 				} elseif ( $callType === 'b' ) { // set property
-					if ( $arguments[0] === null ) {
-						unset( $this->value[self::GENERAL_ATTRIBS][$property] );
-					} else {
-						$this->value[self::GENERAL_ATTRIBS][$property] = $arguments[0];
-					}
-					return;
+					return $this->setTagAttribute( $subname, $arguments[0] );
 				}
 				break;
 		}
+
+		if ( strncmp( 'data', $subname, 4 ) === 0 ) { // allow data* properties
+			if ( $callType === 'p' ) { // get property
+				return $this->getTagAttribute( $subname );
+			} elseif ( $callType === 'b' ) { // set property
+				return $this->setTagAttribute( $subname, $arguments[0] );
+			}
+		}
+
 		return parent::__call( $name, $arguments );
 	}
 
-	public function b_class( $value ) {
+	protected function getTagAttribute( $property ) {
+		if ( isset( $this->value[self::GENERAL_ATTRIBS][$property] ) ) {
+			return $this->value[self::GENERAL_ATTRIBS][$property];
+		}
+		return null;
+	}
+
+	protected function setTagAttribute( $property, $value ) {
 		if ( $value === null ) {
-			unset( $this->value[self::GENERAL_ATTRIBS]['class'] );
-			return;
-		}
-		if ( is_array( $value ) ) {
-			$classes = $value;
+			unset( $this->value[self::GENERAL_ATTRIBS][$property] );
 		} else {
-			$classes = array_filter( explode( ' ', (string)$value ) );
+			$validAttr = \Sanitizer::validateTagAttributes( [$property=>$value], $this->element );
+			if ( isset( $validAttr[$property] ) || array_key_exists( $property, $validAttr ) ) {
+				$this->value[self::GENERAL_ATTRIBS][$property] = $validAttr[$property];
+			} else {
+				Runtime::pushException( new HookException( 'invalid attribute', HookException::EXCEPTION_NOTICE ) );
+			}
 		}
-		$this->value[self::GENERAL_ATTRIBS]['class'] = implode( ' ', array_map( '\Sanitizer::escapeClass', $classes ) );
+	}
+
+	public function b_class( $value ) {
+		if ( $value !== null ) {
+			if ( !is_array( $value ) ) {
+				$value = array_filter( explode( ' ', (string)$value ) );
+			}
+			$value = implode( ' ', array_map( '\Sanitizer::escapeClass', $value ) );
+		}
+		$this->setTagAttribute( 'class', $value );
+	}
+
+	public function p_backgroundImage() {
+		return isset( $this->value[self::GENERAL_PROP]['backgroundImage'] ) ? $this->value[self::GENERAL_PROP]['backgroundImage'] : null;
+	}
+
+	public function b_backgroundImage( $value ) {
+		if ( $value instanceof \PhpTagsObjects\WidgetImage ) {
+			$url = $value->p_url();
+			if ( $url ) {
+				$value = "url('$url')";
+			} else {
+				$value = null;
+			}
+		} elseif ( $value !== 'none' || $value !== 'inherit' || $value !== null ) {
+			\PhpTags\Runtime::pushException( new \PhpTags\HookException( 'Unexpected value, expected strings "none", "inherit" or an Image object') );
+			$value = null;
+		}
+
+		if ( $value ) {
+			$this->value[self::GENERAL_PROP]['backgroundImage'] = $value;
+		} else {
+			unset( $this->value[self::GENERAL_PROP]['backgroundImage'] );
+		}
 	}
 
 }

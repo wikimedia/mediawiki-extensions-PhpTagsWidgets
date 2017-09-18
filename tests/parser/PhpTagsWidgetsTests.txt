@@ -1,3 +1,9 @@
+!! article
+Widget Page
+!! text
+Hello world
+!! endarticle
+
 !! test
 FontAwesomeIcon home
 !! input
@@ -266,5 +272,182 @@ echo FontAwesome::shield->rotate_270;
 </phptag>
 !! result
 <p><i class="fa fa-shield fa-rotate-270"></i>
+</p>
+!! end
+
+!! test
+Link 1
+!! input
+<phptag> echo new Link( "Widget Page" ); </phptag>
+!! result
+<p><a href="/wiki/Widget_Page">Widget Page</a>
+</p>
+!! end
+
+!! test
+Link 2
+!! input
+<phptag> echo new Link( "Widget Page", 'Other title' ); </phptag>
+!! result
+<p><a href="/wiki/Widget_Page">Other title</a>
+</p>
+!! end
+
+!! test
+Link 3
+!! input
+<phptag> echo new Link( "Widget Page notexist", 'Other title' ); </phptag>
+!! result
+<p><a href="/wiki/Widget_Page_notexist">Other title</a>
+</p>
+!! end
+
+!! test
+Link template variable
+!! input
+<phptag> echo new Link( "Widget Page notexist", '{{{1|test}}}' ); </phptag>
+!! result
+<p><a href="/wiki/Widget_Page_notexist">test</a>
+</p>
+!! end
+
+!! test
+Link span
+!! input
+<phptag> echo new Link( "Widget Page", '<span>Other title</span>' ); </phptag>
+!! result
+<p><a href="/wiki/Widget_Page"><span>Other title</span></a>
+</p>
+!! end
+
+!! test
+Link script
+!! input
+<phptag> echo new Link( "Widget Page", '<script>alert("Hacked")</script>' ); </phptag>
+!! result
+<p><a href="/wiki/Widget_Page">&lt;script&gt;alert("Hacked")&lt;/script&gt;</a>
+</p>
+!! end
+
+!! test
+Element div
+!! input
+<phptag> echo new Element( 'div', 'test' ); </phptag>
+!! result
+<div>test</div>
+
+!! end
+
+!! test
+Element span
+!! input
+<phptag> echo new Element( 'span', 'test' ); </phptag>
+!! result
+<p><span>test</span>
+</p>
+!! end
+
+!! test
+Element div script
+!! input
+<phptag> echo new Element( 'div', '<script>alert("Hacked")</script>' ); </phptag>
+!! result
+<div>&lt;script&gt;alert("Hacked")&lt;/script&gt;</div>
+
+!! end
+
+!! test
+Element div a
+!! input
+<phptag> echo new Element( 'div', '<a href="http://hacked.you">Hacked</a>' ); </phptag>
+!! result
+<div>&lt;a href="<a rel="nofollow" class="external free" href="http://hacked.you">http://hacked.you</a>"&gt;Hacked&lt;/a&gt;</div>
+
+!! end
+
+!! test
+Link Element
+!! input
+<phptag>
+$element = new Element( 'span', 'test' );
+echo new Link( "Widget Page", (string)$element );
+</phptag>
+!! result
+<p><a href="/wiki/Widget_Page"><span>test</span></a>
+</p>
+!! end
+
+!! test
+Link Element script
+!! input
+<phptag>
+$element = new Element( 'span', '<script>alert("Hacked")</script>' );
+echo new Link( "Widget Page", (string)$element );
+</phptag>
+!! result
+<p><a href="/wiki/Widget_Page"><span>&lt;script&gt;alert("Hacked")&lt;/script&gt;</span></a>
+</p>
+!! end
+
+!! test
+Image
+!! input
+<phptag> echo new Image( "Foobar.jpg" ); </phptag>
+!! result
+<p><img src="http://example.com/images/3/3a/Foobar.jpg" width="1941px" height="220px"/>
+</p>
+!! end
+
+!! test
+Image alt
+!! input
+<phptag> echo new Image( "Foobar.jpg", ['alt'=>'test'] ); </phptag>
+!! result
+<p><img alt="test" src="http://example.com/images/3/3a/Foobar.jpg" width="1941px" height="220px"/>
+</p>
+!! end
+
+!! test
+Image alt script
+!! input
+<phptag> echo new Image( "Foobar.jpg", ['alt'=>'"><script>alert(\'Hacked\')</script>'] ); </phptag>
+!! result
+<p><img alt="&quot;&gt;&lt;script&gt;alert('Hacked')&lt;/script&gt;" src="http://example.com/images/3/3a/Foobar.jpg" width="1941px" height="220px"/>
+</p>
+!! end
+
+!! test
+Image width
+!! input
+<phptag> echo new Image( "Foobar.jpg", ['width'=>'200px'] ); </phptag>
+!! result
+<p><img width="200px" src="http://example.com/images/thumb/3/3a/Foobar.jpg/200px-Foobar.jpg" height="23px"/>
+</p>
+!! end
+
+!! test
+Image imageWidth
+!! input
+<phptag> echo new Image( 'Foobar.jpg', ['imageWidth'=>'100'] ); </phptag>
+!! result
+<p><img src="http://example.com/images/thumb/3/3a/Foobar.jpg/100px-Foobar.jpg" width="100px" height="11px"/>
+</p>
+!! end
+
+!! test
+Image imageHeight
+!! input
+<phptag> echo new Image( 'Foobar.jpg', ['ImaGeHeiGht'=>'100'] ); </phptag>
+!! result
+<p><img src="http://example.com/images/thumb/3/3a/Foobar.jpg/883px-Foobar.jpg" width="883px" height="100px"/>
+</p>
+!! end
+
+!! test
+Image url
+!! input
+<phptag> $image = new Image( 'Foobar.jpg', ['ImaGeHeiGht'=>'100'] ); echo '<nowiki>', $image->url, '</nowiki>'; </phptag>
+!! result
+<p>http://example.com/images/thumb/3/3a/Foobar.jpg/883px-Foobar.jpg
 </p>
 !! end

@@ -70,20 +70,6 @@ class WidgetFontAwesomeIcon extends \PhpTags\GenericWidget {
 		return parent::__call( $name, $arguments );
 	}
 
-	public static function checkArguments( $object, $method, $arguments, $expects = false ) {
-		switch ( $method ) {
-			case '__construct':
-				$expects = array(
-					\PhpTags\Hooks::TYPE_STRING,
-					\PhpTags\Hooks::TYPE_ARRAY,
-					\PhpTags\Hooks::EXPECTS_MINIMUM_PARAMETERS => 1,
-					\PhpTags\Hooks::EXPECTS_MAXIMUM_PARAMETERS => 2,
-				);
-				break;
-		}
-		return parent::checkArguments( $object, $method, $arguments, $expects );
-	}
-
 	public static function s_getIcons() {
 		return self::$icons;
 	}
