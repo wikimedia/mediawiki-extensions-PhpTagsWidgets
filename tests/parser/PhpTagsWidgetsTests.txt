@@ -412,7 +412,7 @@ Image alt script
 !! input
 <phptag> echo new Image( "Foobar.jpg", ['alt'=>'"><script>alert(\'Hacked\')</script>'] ); </phptag>
 !! result
-<p><img alt="&quot;&gt;&lt;script&gt;alert('Hacked')&lt;/script&gt;" src="http://example.com/images/3/3a/Foobar.jpg" width="1941px" height="220px"/>
+<p><img alt="&quot;&gt;&lt;script&gt;alert(&#39;Hacked&#39;)&lt;/script&gt;" src="http://example.com/images/3/3a/Foobar.jpg" width="1941px" height="220px"/>
 </p>
 !! end
 
