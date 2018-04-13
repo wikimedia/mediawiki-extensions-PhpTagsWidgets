@@ -92,9 +92,6 @@
 		"PhpTagsRuntimeFirstInit": "PhpTagsWidgetsHooks::onPhpTagsRuntimeFirstInit",
 		"UnitTestsList": "PhpTagsWidgetsHooks::onUnitTestsList"
 	},
-	"ParserTestFiles": [
-		"tests/parser/PhpTagsWidgetsTests.txt"
-	],
 	"config": {
 		"PhpTagsWidgetVegaDomainWhiteList": []
 	},
