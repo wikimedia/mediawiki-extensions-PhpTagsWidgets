@@ -89,8 +89,7 @@
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "PhpTagsWidgetsHooks::onParserFirstCallInit",
-		"PhpTagsRuntimeFirstInit": "PhpTagsWidgetsHooks::onPhpTagsRuntimeFirstInit",
-		"UnitTestsList": "PhpTagsWidgetsHooks::onUnitTestsList"
+		"PhpTagsRuntimeFirstInit": "PhpTagsWidgetsHooks::onPhpTagsRuntimeFirstInit"
 	},
 	"config": {
 		"PhpTagsWidgetVegaDomainWhiteList": []

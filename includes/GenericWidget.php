@@ -58,7 +58,9 @@ class GenericWidget extends GenericObject {
 	public function getString() {}
 
 	public function getCssClassName() {
-		if ( self::$classPrefix !== 'UnitTest' && empty( Renderer::$globalVariablesScript['Widgets']['prefix'] ) ) { // Ignore in UnitTests
+		if ( !defined( 'MW_PHPUNIT_TEST' ) && !defined( 'MW_PARSER_TEST' ) && // Ignore in UnitTests
+			empty( Renderer::$globalVariablesScript['Widgets']['prefix'] )
+		) {
 			Renderer::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
 		}
 		return self::$classPrefix . $this->classID;
