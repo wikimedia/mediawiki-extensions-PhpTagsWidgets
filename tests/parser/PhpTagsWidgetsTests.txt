@@ -335,7 +335,6 @@ Element div
 <phptag> echo new Element( 'div', 'test' ); </phptag>
 !! result
 <div>test</div>
-
 !! end
 
 !! test
@@ -353,7 +352,6 @@ Element div script
 <phptag> echo new Element( 'div', '<script>alert("Hacked")</script>' ); </phptag>
 !! result
 <div>&lt;script&gt;alert("Hacked")&lt;/script&gt;</div>
-
 !! end
 
 !! test
@@ -362,7 +360,6 @@ Element div a
 <phptag> echo new Element( 'div', '<a href="http://hacked.you">Hacked</a>' ); </phptag>
 !! result
 <div>&lt;a href="<a rel="nofollow" class="external free" href="http://hacked.you">http://hacked.you</a>"&gt;Hacked&lt;/a&gt;</div>
-
 !! end
 
 !! test
