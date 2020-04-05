@@ -1,6 +1,8 @@
 <?php
 namespace PhpTagsObjects;
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * Description of WidgetImage
  *
@@ -128,7 +130,14 @@ class WidgetImage extends \PhpTags\GenericWidget {
 				return;
 			}
 
-			if ( wfIsBadImage( $imageTitle->getDBkey(), $parser->getTitle() ) ) {
+			if ( method_exists( MediaWikiServices::class, 'getBadFileLookup' ) ) {
+				// MediaWiki 1.34+
+				$badFile = MediaWikiServices::getInstance()->getBadFileLookup()
+					->isBadFile( $imageTitle->getDBkey(), $parser->getTitle() );
+			} else {
+				$badFile = wfIsBadImage( $imageTitle->getDBkey(), $parser->getTitle() );
+			}
+			if ( $badFile ) {
 				\PhpTags\Runtime::pushException( new \PhpTags\HookException( 'Image `' . $imageTitle->getDBkey() . '` is bad for this title', \PhpTags\HookException::EXCEPTION_NOTICE ) );
 				return false;
 			}
