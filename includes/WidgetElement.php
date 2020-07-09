@@ -2,7 +2,7 @@
 namespace PhpTagsObjects;
 
 /**
- * Description of WidgeElement
+ * Description of WidgetElement
  *
  * @author Pavel Astakhov <pastakhov@yandex.ru>
  * @licence GNU General Public Licence 2.0 or later

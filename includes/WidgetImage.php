@@ -1,14 +1,20 @@
 <?php
 namespace PhpTagsObjects;
 
+use File;
 use MediaWiki\MediaWikiServices;
+use PhpTags\GenericWidget;
+use PhpTags\HookException;
+use PhpTags\Renderer;
+use PhpTags\Runtime;
+use Title;
 
 /**
  * Description of WidgetImage
  *
  * @author pastakhov
  */
-class WidgetImage extends \PhpTags\GenericWidget {
+class WidgetImage extends GenericWidget {
 
 	protected $element = 'img';
 	protected static $trueCase = [
@@ -72,7 +78,7 @@ class WidgetImage extends \PhpTags\GenericWidget {
 					} else {
 						$props[$property] = $arguments[0];
 					}
-					return;
+					return null;
 				}
 
 		}
@@ -117,28 +123,34 @@ class WidgetImage extends \PhpTags\GenericWidget {
 		return $file ? $file->getHeight() : false;
 	}
 
-	private function getImageObjects() {
-		if ( !isset( $this->value[self::PRIVATE_PROP]['file'] ) ) {
-			return false;
+	/**
+	 * @return Title|null
+	 */
+	public function getImageTitle() {
+		$imageFile = $this->value[self::PRIVATE_PROP]['file'] ?? null;
+		if ( $imageFile ) {
+			$imageTitle = Title::newFromText( $imageFile, NS_FILE );
+			return $imageTitle ?: null;
 		}
-		$imageFile = $this->value[self::PRIVATE_PROP]['file'];
+		return null;
+	}
+
+	private function getImageObjects() {
+		$imageTitle = $this->getImageTitle();
+		if ( !$imageTitle ) {
+			return null;
+		}
 
 		if ( !isset( $this->value[self::PRIVATE_PROP]['objects'] ) ) {
-			$parser = \PhpTags\Renderer::getParser();
-			$imageTitle = \Title::makeTitleSafe( NS_FILE, $imageFile );
-			if ( !$imageTitle ) {
-				return;
-			}
+			$parser = Renderer::getParser();
 
-			if ( method_exists( MediaWikiServices::class, 'getBadFileLookup' ) ) {
-				// MediaWiki 1.34+
-				$badFile = MediaWikiServices::getInstance()->getBadFileLookup()
-					->isBadFile( $imageTitle->getDBkey(), $parser->getTitle() );
-			} else {
-				$badFile = wfIsBadImage( $imageTitle->getDBkey(), $parser->getTitle() );
-			}
-			if ( $badFile ) {
-				\PhpTags\Runtime::pushException( new \PhpTags\HookException( 'Image `' . $imageTitle->getDBkey() . '` is bad for this title', \PhpTags\HookException::EXCEPTION_NOTICE ) );
+			if ( version_compare(MW_VERSION, '1.34', '>=' ) ) {
+				if ( MediaWikiServices::getInstance()->getBadFileLookup()->isBadFile( $imageTitle->getDBkey(), $parser->getTitle() ) ) {
+					Runtime::pushException( new HookException( 'Image `' . $imageTitle->getDBkey() . '` is bad for this title', HookException::EXCEPTION_NOTICE ) );
+					return false;
+				}
+			} elseif ( wfIsBadImage( $imageTitle->getDBkey(), $parser->getTitle() ) ) { // TODO remove deprecated code
+				Runtime::pushException( new HookException( 'Image `' . $imageTitle->getDBkey() . '` is bad for this title', HookException::EXCEPTION_NOTICE ) );
 				return false;
 			}
 
@@ -149,18 +161,20 @@ class WidgetImage extends \PhpTags\GenericWidget {
 			\Hooks::run( 'BeforeParserFetchFileAndTitle', [ $parser, $imageTitle, &$options, &$descQuery ] );
 
 			# Fetch and register the file (file title may be different via hooks)
+			/** @var File $file */
+			/** @var Title $title */
 			list( $file, $title ) = $parser->fetchFileAndTitle( $imageTitle, $options );
 
 			if ( !$file ) {
 				$parser->addTrackingCategory( 'broken-file-category' );
-				\PhpTags\Runtime::pushException( new \PhpTags\HookException( 'Image `' . $title->getPrefixedDBkey() . '` not found', \PhpTags\HookException::EXCEPTION_NOTICE ) );
+				Runtime::pushException( new HookException( 'Image `' . $title->getPrefixedDBkey() . '` not found', HookException::EXCEPTION_NOTICE ) );
 				return false;
 			}
 
 			// see Linker::makeImageLink2
 			if ( !$file->allowInlineDisplay() ) {
 				wfDebug( __METHOD__ . ': ' . $title->getPrefixedDBkey() . " does not allow inline display\n" );
-				\PhpTags\Runtime::pushException( new \PhpTags\HookException( 'Image `' . $title->getPrefixedDBkey() . '` does not allow inline display', \PhpTags\HookException::EXCEPTION_NOTICE ) );
+				Runtime::pushException( new HookException( 'Image `' . $title->getPrefixedDBkey() . '` does not allow inline display', HookException::EXCEPTION_NOTICE ) );
 				return false;
 			}
 
@@ -205,6 +219,25 @@ class WidgetImage extends \PhpTags\GenericWidget {
 		$physicalWidth = $this->getPhysicalSize( true );
 		$physicalHeight = $this->getPhysicalSize( false );
 
+		if ( !$file->isVectorized() ) { // Don't allow transform thumb to bigger image size
+			if ( $srcWidth && $physicalWidth > $srcWidth ) {
+				$physicalWidth = $srcWidth;
+			}
+			if ( $srcHeight && $physicalHeight > $srcHeight ) {
+				$physicalHeight = $srcHeight;
+			}
+		}
+
+		if ( $physicalWidth && $physicalHeight && $srcWidth && $srcHeight ) { // select thumb with bigger size if both sizes provided
+			$scaleWidth = $physicalWidth / $srcWidth;
+			$scaleHeight = $physicalHeight / $srcHeight;
+			if ( $scaleWidth > $scaleHeight ) {
+				$physicalHeight = $srcHeight * $scaleWidth;
+			} elseif ( $scaleWidth < $scaleHeight ) {
+				$physicalWidth = $srcWidth * $scaleHeight;
+			}
+		}
+
 		if ( !$physicalWidth ) {
 			if ( $physicalHeight && $file->isVectorized() ) {
 				// If its a vector image, and user only specifies height
@@ -212,10 +245,6 @@ class WidgetImage extends \PhpTags\GenericWidget {
 				global $wgSVGMaxSize;
 				$physicalWidth = $wgSVGMaxSize;
 			} else {
-				$physicalWidth = $srcWidth;
-			}
-		} else {
-			if ( $srcWidth && !$file->mustRender() && $physicalWidth > $srcWidth ) {
 				$physicalWidth = $srcWidth;
 			}
 		}
@@ -229,10 +258,10 @@ class WidgetImage extends \PhpTags\GenericWidget {
 		# Create a resized image, without the additional thumbnail features
 		$thumb = $file->transform( ['width' => $physicalWidth, 'height' => $physicalHeight] );
 		if ( !$thumb ) {
-			\PhpTags\Runtime::pushException( new \PhpTags\HookException( $file->getLastError() ) );
+			Runtime::pushException( new HookException( $file->getLastError() ) );
 			return false;
 		} elseif ( $thumb->isError() ) {
-			\PhpTags\Runtime::pushException( new \PhpTags\HookException( $thumb->toText() ) );
+			Runtime::pushException( new HookException( $thumb->toText() ) );
 			return false;
 		}
 
@@ -241,6 +270,10 @@ class WidgetImage extends \PhpTags\GenericWidget {
 		return $thumb->getUrl();
 	}
 
+	/**
+	 * @param $width
+	 * @return int|null
+	 */
 	protected function getPhysicalSize ( $width ) {
 		$props =& $this->value[self::PRIVATE_PROP];
 		$type1 = $width ? 'imageWidth' : 'imageHeight';
@@ -263,6 +296,14 @@ class WidgetImage extends \PhpTags\GenericWidget {
 			}
 		}
 		return null;
+	}
+
+	public function p_exists() {
+		$imageTitle = $this->getImageTitle();
+		if ( $imageTitle ) {
+			return wfFindFile( $imageTitle, [] ) ? true : false;
+		}
+		return false;
 	}
 
 }

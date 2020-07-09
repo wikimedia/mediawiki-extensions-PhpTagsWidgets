@@ -6,6 +6,8 @@ namespace PhpTags;
  *
  * @author Pavel Astakhov <pastakhov@yandex.ru>
  * @licence GNU General Public Licence 2.0 or later
+ * @method null b_style( string $style )
+ * @method string p_style()
  */
 class GenericWidget extends GenericObject {
 
@@ -59,9 +61,9 @@ class GenericWidget extends GenericObject {
 
 	public function getCssClassName() {
 		if ( !defined( 'MW_PHPUNIT_TEST' ) && !defined( 'MW_PARSER_TEST' ) && // Ignore in UnitTests
-			empty( Renderer::$globalVariablesScript['Widgets']['prefix'] )
+			!Renderer::getScriptVariable( [ 'Widgets', 'prefix' ] )
 		) {
-			Renderer::$globalVariablesScript['Widgets']['prefix'] = self::$classPrefix;
+			Renderer::setScriptVariable( [ 'Widgets', 'prefix' ], self::$classPrefix );
 		}
 		return self::$classPrefix . $this->classID;
 	}
@@ -93,7 +95,7 @@ class GenericWidget extends GenericObject {
 		}
 	}
 
-	public function toString() {
+	protected function getContent() {
 		$string = $this->getString();
 		if ( $string ) {
 			$parser = \PhpTags\Renderer::getParser();
@@ -102,7 +104,11 @@ class GenericWidget extends GenericObject {
 		} else {
 			$content = '';
 		}
+		return $content;
+	}
 
+	public function toString() {
+		$content = $this->getContent();
 		$element = \Html::rawElement( $this->element, $this->getAttribs(), $content );
 		return \PhpTags\Renderer::insertStripItem( $element );
 	}
@@ -116,35 +122,22 @@ class GenericWidget extends GenericObject {
 	 * @param array $values
 	 */
 	protected function addData( $values ) {
-		Renderer::$globalVariablesScript['Widgets']['data'][(string)$this->classID] = $values;
+		Renderer::setScriptVariable( [ 'Widgets', 'data', (string)$this->classID ], $values );
 	}
 
 	protected function addModules( $modules, $command = false ) {
-		static $output = false;
-		if ( $output === false ) {
-			$output = Renderer::getParser()->getOutput();
-		}
-
+		$output = Renderer::getParser()->getOutput();
+		$output->addModules( $modules );
 		$arrayModules = (array)$modules;
 		sort( $arrayModules );
-		$needToAdd = array();
-		foreach ( $arrayModules as $m ) {
-			if ( false === isset( self::$addedModules[$m] ) ) {
-				self::$addedModules[$m] = true;
-				$needToAdd[] = $m;
-			}
-		}
-		if ( $needToAdd ) {
-			$output->addModules( $needToAdd );
-		}
 
 		if ( $command ) {
 			$md = md5( serialize( $arrayModules ) );
-			if ( false === isset( Renderer::$globalVariablesScript['Widgets']['whenReady'][$md] ) ) {
-				Renderer::$globalVariablesScript['Widgets']['whenReady'][$md]['modules'] = $arrayModules;
+			if ( !Renderer::getScriptVariable( ['Widgets', 'whenReady', $md ] ) ) {
+				Renderer::setScriptVariable( [ 'Widgets', 'whenReady', $md, 'modules' ], $arrayModules );
 				$this->addModules( 'ext.PhpTagsWidgets.onReady', false );
 			}
-			Renderer::$globalVariablesScript['Widgets']['whenReady'][$md]['fn'][ (string)$this->classID ] = $command;
+			Renderer::setScriptVariable( [ 'Widgets', 'whenReady', $md, 'fn', (string)$this->classID ], $command );
 		}
 	}
 

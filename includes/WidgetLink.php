@@ -19,7 +19,7 @@ class WidgetLink extends \PhpTags\GenericWidget {
 				throw new \PhpTags\HookException( 'Title object expected' );
 			}
 		} else if ( $title !== false ) {
-			$t = \PhpTags\Hooks::createObject( array($title), 'WTitle', 'wtitle' );
+			$t = \PhpTags\Hooks::createObject( array($title), 'WTitle' );
 			if ( $t->value instanceof \Title ) {
 				$title = $t->value;
 			} else {

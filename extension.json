@@ -20,7 +20,8 @@
 		"PhpTagsObjects\\WidgetElement": "includes/WidgetElement.php",
 		"PhpTagsObjects\\WidgetImage": "includes/WidgetImage.php",
 		"PhpTagsObjects\\WidgetVega": "includes/WidgetVega.php",
-		"PhpTagsObjects\\WidgetLink": "includes/WidgetLink.php"
+		"PhpTagsObjects\\WidgetLink": "includes/WidgetLink.php",
+		"PhpTagsObjects\\WidgetMediaViewer": "includes/WidgetMediaViewer.php"
 	},
 	"ResourceModules": {
 		"ext.PhpTagsWidgets.onReady": {

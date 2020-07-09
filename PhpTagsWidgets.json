@@ -105,6 +105,11 @@
 					"type": "string",
 					"desc": "Return the url of the image",
 					"readonly": 1
+				},
+				"exists": {
+					"type": "bool",
+					"desc": "exist image",
+					"readonly": 1
 				}
 			}
 		},
@@ -120,6 +125,21 @@
 					],
 					"return": "Link",
 					"desc": "Returns new Link object"
+				}
+			}
+		},
+		"MediaViewer": {
+			"class": "WidgetMediaViewer",
+			"parent": "GenericWidget",
+			"METHODS": {
+				"__construct" : {
+					"parameters": [
+						{ "type": "Image", "name": "image", "default": "null" },
+						{ "type": "string", "name": "text", "default": "null" },
+						{ "type": "array", "name": "properties", "default": "null" }
+					],
+					"return": "MediaViewer",
+					"desc": "Returns new MediaViewer object"
 				}
 			}
 		},
@@ -244,6 +264,10 @@
 				"variableWidth": {
 					"type": "bool",
 					"desc": "Variable width slides"
+				},
+				"waitForAnimate": {
+					"type": "bool",
+					"desc": "Ignores requests to advance the slide while animating"
 				},
 				"vertical": {
 					"type": "bool",

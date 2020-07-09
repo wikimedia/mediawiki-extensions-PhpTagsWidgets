@@ -19,7 +19,7 @@ class WidgetVega extends \PhpTags\GenericWidget {
 
 		if ( false === $domainWhiteListWasAdded ) {
 			$domainWhiteListWasAdded = true;
-			\PhpTags\Renderer::$globalVariablesScript['Widgets']['vega']['domainWhiteList'] = $wgPhpTagsWidgetVegaDomainWhiteList;
+			\PhpTags\Renderer::setScriptVariable( [ 'Widgets', 'vega', 'domainWhiteList' ], $wgPhpTagsWidgetVegaDomainWhiteList );
 		}
 		$this->addModules( 'ext.PhpTagsWidgets.vega', 'extpwVega' );
 		$this->addData( array( $this->value[self::PROP] ) );

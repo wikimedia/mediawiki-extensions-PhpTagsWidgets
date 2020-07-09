@@ -26,6 +26,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 		'touchthreshold' => 'touchThreshold',
 		'usecss' => 'useCSS',
 		'variablewidth' => 'variableWidth',
+		'waitforanimate' => 'waitForAnimate',
 	);
 
 	public static function f_slick() {
@@ -69,6 +70,7 @@ class WidgetSlick extends \PhpTags\GenericWidget {
 			case 'touchthreshold':
 			case 'usecss':
 			case 'variablewidth':
+			case 'waitforanimate':
 // @todo	case 'appendarrows':
 // @todo	case 'prevarrow':
 // @todo	case 'nextarrow':
