@@ -368,11 +368,6 @@
 					"get": "FontAwesomeIcon",
 					"desc": "Flips icon vertically"
 				},
-				"flip_vertical": {
-					"type": "bool",
-					"get": "FontAwesomeIcon",
-					"desc": "Flips icon vertically"
-				},
 				"inverse": {
 					"type": "bool",
 					"get": "FontAwesomeIcon",

@@ -2,7 +2,7 @@
  *
  */
 ( function ( $, mw ) {
-	"use strict";
+	'use strict';
 
 	function onReady() {
 		var $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' ),
@@ -12,9 +12,9 @@
 			$k,
 			mwPhpTagsWidgetsDoIt = function ( $fn ) {
 				for ( $k in $fn ) {
-					if ( $fn.hasOwnProperty($k) ) {
-						$data = ( $phptagsWidgets.data && $phptagsWidgets.data[$k] ) || {};
-						$.fn[ $fn[$k] ].apply( $( '.' + $prefix + $k ) , $data );
+					if ( $fn.hasOwnProperty( $k ) ) {
+						$data = ( $phptagsWidgets.data && $phptagsWidgets.data[ $k ] ) || {};
+						$.fn[ $fn[ $k ] ].apply( $( '.' + $prefix + $k ), $data );
 					}
 				}
 			},
@@ -22,11 +22,11 @@
 
 		if ( $whenReady ) {
 			for ( $key in $whenReady ) {
-				if ( $whenReady.hasOwnProperty($key) ) {
+				if ( $whenReady.hasOwnProperty( $key ) ) {
 					$.when(
-						$whenReady[$key].fn,
+						$whenReady[ $key ].fn,
 						$.ready,
-						mw.loader.using( $whenReady[$key].modules )
+						mw.loader.using( $whenReady[ $key ].modules )
 					).done(
 						mwPhpTagsWidgetsDoIt
 					);
@@ -43,8 +43,8 @@
 			).done(
 				function () {
 					for ( $key in $phptagsWidgets.onReady ) {
-						if ( $phptagsWidgets.onReady.hasOwnProperty($key) ) {
-							$.fn[ $phptagsWidgets.onReady[$key] ].apply( $( '.' + $prefix + $key ) , $phptagsWidgets.data[$key] );
+						if ( $phptagsWidgets.onReady.hasOwnProperty( $key ) ) {
+							$.fn[ $phptagsWidgets.onReady[ $key ] ].apply( $( '.' + $prefix + $key ), $phptagsWidgets.data[ $key ] );
 						}
 					}
 				}
@@ -54,4 +54,4 @@
 
 	$( document ).ready( onReady );
 
-} )( jQuery, mediaWiki );
+}( jQuery, mediaWiki ) );

@@ -2,14 +2,14 @@
  *
  */
 ( function ( $, mw, vg ) {
-	"use strict";
+	'use strict';
 
-	$.fn.extpwVega = function ($data) {
+	$.fn.extpwVega = function ( $data ) {
 		vg.config.safeMode = true;
-		vg.config.domainWhiteList = mw.config.get('ext.phptags.Widgets').vega.domainWhiteList;
-		this.each( function(index, element) {
-			vg.parse.spec( $data, function(chart) { chart({el:element}).update(); });
-		});
+		vg.config.domainWhiteList = mw.config.get( 'ext.phptags.Widgets' ).vega.domainWhiteList;
+		this.each( function ( index, element ) {
+			vg.parse.spec( $data, function ( chart ) { chart( { el: element } ).update(); } );
+		} );
 	};
 
-} )( jQuery, mediaWiki, vg );
+}( jQuery, mediaWiki, vg ) );
