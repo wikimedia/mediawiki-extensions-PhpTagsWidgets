@@ -12,6 +12,7 @@
 	"rules": {
 		"no-undef": "warn",
 		"no-prototype-builtins": "warn",
-		"max-statements-per-line": "warn"
+		"max-statements-per-line": "warn",
+		"no-tabs": "warn"
 	}
 }

@@ -2,7 +2,7 @@
 	"objects": {
 		"GenericWidget": {
 			"METHODS": {
-				"__construct" : {
+				"__construct": {
 					"parameters": [
 						{ "type": "array", "name": "properties", "default": "null" }
 					],
@@ -42,7 +42,7 @@
 			"class": "WidgetElement",
 			"parent": "GenericWidget",
 			"METHODS": {
-				"__construct" : {
+				"__construct": {
 					"parameters": [
 						{ "type": "string", "name": "element", "default": "span" },
 						{ "type": "string", "name": "content", "default": "null" },
@@ -57,7 +57,7 @@
 			"class": "WidgetImage",
 			"parent": "GenericWidget",
 			"METHODS": {
-				"__construct" : {
+				"__construct": {
 					"parameters": [
 						{ "type": "mixed", "name": "file", "default": "null" },
 						{ "type": "array", "name": "properties", "default": "null" }
@@ -117,7 +117,7 @@
 			"class": "WidgetLink",
 			"parent": "GenericWidget",
 			"METHODS": {
-				"__construct" : {
+				"__construct": {
 					"parameters": [
 						{ "type": "mixed", "name": "title", "default": "null" },
 						{ "type": "string", "name": "text", "default": "null" },
@@ -132,7 +132,7 @@
 			"class": "WidgetMediaViewer",
 			"parent": "GenericWidget",
 			"METHODS": {
-				"__construct" : {
+				"__construct": {
 					"parameters": [
 						{ "type": "Image", "name": "image", "default": "null" },
 						{ "type": "string", "name": "text", "default": "null" },
@@ -147,7 +147,7 @@
 			"class": "WidgetSlick",
 			"parent": "GenericWidget",
 			"METHODS": {
-				"__construct" : {
+				"__construct": {
 					"parameters": [
 						{ "type": "mixed", "name": "slides", "default": "null" },
 						{ "type": "array", "name": "properties", "default": "null" }
@@ -283,7 +283,7 @@
 			"class": "WidgetFontAwesomeIcon",
 			"parent": "GenericWidget",
 			"METHODS": {
-				"__construct" : {
+				"__construct": {
 					"parameters": [
 						{ "type": "string", "name": "iconName" },
 						{ "type": "array", "name": "properties", "default": "null" }
@@ -1152,7 +1152,7 @@
 		}
 	},
 	"constants": {
-		"PHPTAGS_WIDGETS_VERSION" : {
+		"PHPTAGS_WIDGETS_VERSION": {
 			"desc": "The current version of the PhpTags Widget extension as a string",
 			"class": "PhpTagsWidgetsConstants",
 			"type": "string",
