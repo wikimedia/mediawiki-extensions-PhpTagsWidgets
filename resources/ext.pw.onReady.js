@@ -52,6 +52,6 @@
 		}
 	}
 
-	$( document ).ready( onReady );
+	$( onReady );
 
 }( jQuery, mediaWiki ) );
