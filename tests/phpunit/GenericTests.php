@@ -1,7 +1,7 @@
 <?php
 namespace PhpTags;
 
-class PhpTagsWidgets_GenericTest extends \MediaWikiTestCase {
+class PhpTagsWidgets_GenericTest extends \MediaWikiIntegrationTestCase {
 
 	public function testRun_constant_1() {
 		$this->assertEquals(

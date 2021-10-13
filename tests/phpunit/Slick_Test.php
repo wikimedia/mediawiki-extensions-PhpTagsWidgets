@@ -1,7 +1,7 @@
 <?php
 namespace PhpTags;
 
-class PhpTagsWidgets_Slick_Test extends \MediaWikiTestCase {
+class PhpTagsWidgets_Slick_Test extends \MediaWikiIntegrationTestCase {
 
 	public function testRun_property_style() {
 		$this->assertEquals(
