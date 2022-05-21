@@ -1,5 +1,7 @@
 /**
- *
+ * @param $
+ * @param mw
+ * @param vg
  */
 ( function ( $, mw, vg ) {
 	'use strict';
