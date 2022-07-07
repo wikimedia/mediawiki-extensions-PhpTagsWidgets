@@ -301,7 +301,7 @@ class WidgetImage extends GenericWidget {
 	public function p_exists() {
 		$imageTitle = $this->getImageTitle();
 		if ( $imageTitle ) {
-			return wfFindFile( $imageTitle, [] ) ? true : false;
+			return MediaWikiServices::getInstance()->getRepoGroup()->findFile( $imageTitle, [] ) ? true : false;
 		}
 		return false;
 	}
