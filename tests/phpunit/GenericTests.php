@@ -1,6 +1,9 @@
 <?php
 namespace PhpTags;
 
+/**
+ * @coversNothing
+ */
 class PhpTagsWidgets_GenericTest extends \MediaWikiIntegrationTestCase {
 
 	public function testRun_constant_1() {
