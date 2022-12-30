@@ -126,16 +126,16 @@ class GenericWidget extends GenericObject {
 	}
 
 	protected function addModules( $modules, $command = false ) {
-		$output = Renderer::getParser()->getOutput();
-		$output->addModules( $modules );
+		$parserOutput = Renderer::getParser()->getOutput();
 		$arrayModules = (array)$modules;
+		$parserOutput->addModules( $arrayModules );
 		sort( $arrayModules );
 
 		if ( $command ) {
 			$md = md5( serialize( $arrayModules ) );
 			if ( !Renderer::getScriptVariable( ['Widgets', 'whenReady', $md ] ) ) {
 				Renderer::setScriptVariable( [ 'Widgets', 'whenReady', $md, 'modules' ], $arrayModules );
-				$this->addModules( 'ext.PhpTagsWidgets.onReady', false );
+				$this->addModules( [ 'ext.PhpTagsWidgets.onReady' ], false );
 			}
 			Renderer::setScriptVariable( [ 'Widgets', 'whenReady', $md, 'fn', (string)$this->classID ], $command );
 		}
