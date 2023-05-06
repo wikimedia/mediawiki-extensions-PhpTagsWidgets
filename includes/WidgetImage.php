@@ -158,7 +158,7 @@ class WidgetImage extends GenericWidget {
 			# Give extensions a chance to select the file revision for us
 			$options = [];
 			$descQuery = false;
-			\Hooks::run( 'BeforeParserFetchFileAndTitle', [ $parser, $imageTitle, &$options, &$descQuery ] );
+			MediaWikiServices::getInstance()->getHookContainer()->run( 'BeforeParserFetchFileAndTitle', [ $parser, $imageTitle, &$options, &$descQuery ] );
 
 			# Fetch and register the file (file title may be different via hooks)
 			/** @var File $file */

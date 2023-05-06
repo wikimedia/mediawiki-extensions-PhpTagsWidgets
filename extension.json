@@ -6,7 +6,7 @@
 	"descriptionmsg": "phptagswidgets-desc",
 	"type": "phptags",
 	"requires": {
-		"MediaWiki": ">= 1.34.0"
+		"MediaWiki": ">= 1.35.0"
 	},
 	"MessagesDirs": {
 		"PhpTagsWidgets": [
