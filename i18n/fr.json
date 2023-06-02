@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Verdy p",
 			"Wladek92"
 		]
 	},
-	"phptagswidgets-desc": "Contient une collection de widgets pour l'extension PhpTags"
+	"phptagswidgets-desc": "Contient une collection de widgets pour l’extension PhpTags"
 }
