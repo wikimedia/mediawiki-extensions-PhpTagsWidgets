@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
-	"phptagswidgets-desc": "Contien una coleición de widgets pa la estensión PhpTags"
+	"phptagswidgets-desc": "Contién una coleición de widgets pa la estensión PhpTags"
 }
