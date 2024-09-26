@@ -4,7 +4,7 @@ namespace PhpTags;
 /**
  * @covers \PhpTagsObjects\WidgetSlick
  */
-class PhpTagsWidgets_Slick_Test extends \MediaWikiIntegrationTestCase {
+class Slick_Test extends \MediaWikiIntegrationTestCase {
 
 	public function testRun_property_style() {
 		$this->assertEquals(
