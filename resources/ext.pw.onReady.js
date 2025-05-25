@@ -6,7 +6,7 @@
 	'use strict';
 
 	function onReady() {
-		var $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' ),
+		let $phptagsWidgets = mw.config.get( 'ext.phptags.Widgets' ),
 			$prefix = $phptagsWidgets.prefix,
 			$whenReady = $phptagsWidgets.whenReady,
 			$data,
@@ -42,7 +42,7 @@
 				$.ready,
 				mw.loader.using( $phptagsWidgets.wait )
 			).done(
-				function () {
+				() => {
 					for ( $key in $phptagsWidgets.onReady ) {
 						if ( $phptagsWidgets.onReady.hasOwnProperty( $key ) ) {
 							$.fn[ $phptagsWidgets.onReady[ $key ] ].apply( $( '.' + $prefix + $key ), $phptagsWidgets.data[ $key ] );

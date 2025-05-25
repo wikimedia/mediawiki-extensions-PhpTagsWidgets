@@ -9,8 +9,8 @@
 	$.fn.extpwVega = function ( $data ) {
 		vg.config.safeMode = true;
 		vg.config.domainWhiteList = mw.config.get( 'ext.phptags.Widgets' ).vega.domainWhiteList;
-		this.each( function ( index, element ) {
-			vg.parse.spec( $data, function ( chart ) {
+		this.each( ( index, element ) => {
+			vg.parse.spec( $data, ( chart ) => {
 				chart( { el: element } ).update();
 			} );
 		} );
